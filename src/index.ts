@@ -253,8 +253,6 @@ export { BottomSheet } from "./components/BottomSheet";
 export type { BottomSheetRootProps, BottomSheetTriggerProps, BottomSheetPopupProps, BottomSheetHeaderProps, BottomSheetTitleProps, BottomSheetDescriptionProps, BottomSheetCloseProps, BottomSheetBodyProps, BottomSheetFooterProps } from "./components/BottomSheet";
 export { BottomSheetSelect } from "./components/BottomSheet";
 export type { BottomSheetSelectProps, BottomSheetSelectItem } from "./components/BottomSheet";
-export { ResponsiveSheet } from "./components/ResponsiveSheet";
-export type { ResponsiveSheetRootProps, ResponsiveSheetTriggerProps, ResponsiveSheetPopupProps, ResponsiveSheetHeaderProps, ResponsiveSheetTitleProps, ResponsiveSheetDescriptionProps, ResponsiveSheetCloseProps, ResponsiveSheetBodyProps, ResponsiveSheetFooterProps } from "./components/ResponsiveSheet";
 export { Tooltip } from "./components/Tooltip";
 export type {
   TooltipProviderProps,
