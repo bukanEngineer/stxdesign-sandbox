@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Removed
+
+- **Breaking:** `ResponsiveSheet` (added in 0.4.0) and its types. Modals stay modals at every width. Use `Modal` for centered dialogs and `BottomSheet` / `BottomSheetSelect` for sheets, choosing per screen.
+
 ## [0.5.0] — 2026-10-08
 
 ### Added
