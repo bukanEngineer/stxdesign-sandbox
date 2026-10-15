@@ -1,10 +1,20 @@
 # Changelog
 
-## Unreleased
+## [0.6.0] — 2026-10-08
+
+### Added
+
+- `InlineCrossAsset` now resolves stablecoin logos and matching fiat currency flags automatically (`XUSD` → `USD`, `XSGD` → `SGD`, and `XIDR` → `IDR`). Explicit `fromIcon` and `toIcon` values remain supported.
+- `AssetMark` now renders circular USD, SGD and IDR flag marks for fiat currencies.
 
 ### Removed
 
 - **Breaking:** `ResponsiveSheet` (added in 0.4.0) and its types. Modals stay modals at every width. Use `Modal` for centered dialogs and `BottomSheet` / `BottomSheetSelect` for sheets, choosing per screen.
+
+### Fixed
+
+- Updated modal stories to use the real illustration components.
+- Improved typography and spacing consistency for numbers, addresses and related component stories.
 
 ## [0.5.0] — 2026-10-08
 
