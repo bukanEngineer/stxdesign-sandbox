@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 import { BottomSheetSelect } from "./BottomSheetSelect";
 import { Button } from "../Button";
 
@@ -55,6 +56,27 @@ export const Default: Story = {
 export const Searchable: Story = {
   render: Render,
   args: { title: "Select asset", description: "Pick the asset to send.", items: assets, searchable: true },
+  play: async ({ canvasElement }) => {
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(within(canvasElement).getByRole("button", { name: "Select asset" }));
+    const dialog = await page.findByRole("dialog");
+    await canvasElement.ownerDocument.fonts.ready;
+    const openingHeight = dialog.offsetHeight;
+    const search = page.getByRole("searchbox");
+
+    await userEvent.type(search, "Bitcoin");
+    await expect(page.getAllByRole("option")).toHaveLength(1);
+    await expect(dialog.offsetHeight).toBe(openingHeight);
+
+    await userEvent.clear(search);
+    await userEvent.type(search, "no matching asset");
+    await expect(page.getByRole("status")).toHaveTextContent("No results found");
+    await expect(dialog.offsetHeight).toBe(openingHeight);
+
+    await userEvent.clear(search);
+    await expect(page.getAllByRole("option")).toHaveLength(assets.length);
+    await expect(dialog.offsetHeight).toBe(openingHeight);
+  },
 };
 
 export const Open: Story = {

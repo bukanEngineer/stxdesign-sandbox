@@ -30,7 +30,7 @@ export type BottomSheetSelectProps<Item extends BottomSheetSelectItem> = Omit<
   value?: string | null;
   /** Called with the picked item's id and the item itself */
   onValueChange?: (value: string, item: Item) => void;
-  /** Show a search field that filters by name and text descriptions */
+  /** Show a search field that filters by name and text descriptions without collapsing the sheet. */
   searchable?: boolean;
   searchPlaceholder?: string;
   /** Shown when search matches nothing */
@@ -62,6 +62,19 @@ function SelectList<Item extends BottomSheetSelectItem>({
   label,
 }: SelectListProps<Item>) {
   const [query, setQuery] = React.useState("");
+  const bodyRef = React.useRef<HTMLDivElement>(null);
+  const [unfilteredHeight, setUnfilteredHeight] = React.useState<number>();
+  const filtering = query.trim().length > 0;
+
+  function handleQueryChange(nextQuery: string) {
+    if (!query.trim()) {
+      // Measure before filtering removes rows. Use the full scroll height so
+      // opening the keyboard doesn't permanently reduce the reserved space.
+      setUnfilteredHeight(bodyRef.current?.scrollHeight);
+    }
+    setQuery(nextQuery);
+  }
+
   const options: OptionListItem[] = items
     .filter((item) => matches(item, query))
     .map((item) => ({
@@ -82,14 +95,19 @@ function SelectList<Item extends BottomSheetSelectItem>({
             <Input
               type="search"
               value={query}
-              onValueChange={setQuery}
+              onValueChange={handleQueryChange}
               placeholder={searchPlaceholder}
               aria-label={searchPlaceholder}
             />
           </Field.Root>
         </div>
       )}
-      <BottomSheet.Body>
+      <BottomSheet.Body
+        ref={bodyRef}
+        // Flex basis preserves the results area but can still shrink to fit
+        // the popup's maximum height when the keyboard or viewport changes.
+        style={filtering ? { flexBasis: unfilteredHeight } : undefined}
+      >
         {options.length === 0 ? (
           <p className="bsheet-select__empty" role="status">
             {emptyText}
