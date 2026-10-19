@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.1] — 2026-10-20
+
+### Fixed
+
+- `BottomSheetSelect` with `searchable` keeps the sheet height when filtering or showing the empty state, so the popup no longer collapses while typing.
+
 ## [0.6.0] — 2026-10-08
 
 ### Added
