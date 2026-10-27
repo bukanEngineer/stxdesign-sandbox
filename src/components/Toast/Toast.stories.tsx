@@ -7,7 +7,12 @@ import { Button } from "../Button/Button";
 const meta: Meta<typeof ToastProvider> = {
   title: "P1 Components/Toast",
   component: ToastProvider,
-  parameters: { layout: "centered" },
+  parameters: {
+    layout: "centered",
+    // The toast viewport is `position: fixed`, so on the Docs page it would pin to the
+    // top of the scrolling page. Rendering each story in its own iframe keeps it in the story's box.
+    docs: { story: { inline: false, iframeHeight: "240px" } },
+  },
 };
 export default meta;
 
@@ -28,6 +33,7 @@ function AllTones() {
 }
 
 export const Tones: Story = {
+  parameters: { docs: { story: { iframeHeight: "280px" } } },
   render: () => (
     <ToastProvider limit={4}>
       <AllTones />
