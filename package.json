@@ -1,6 +1,6 @@
 {
   "name": "stxdesign-sandbox",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "StraitsX design system — tokens + React components, with Storybook and Chromatic visual regression.",
   "keywords": [
     "react",

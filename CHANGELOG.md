@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.2] — 2026-11-05
+
+### Fixed
+
+- `Toast` stays inside each story's box on the Docs page instead of sticking to the top of the viewport.
+
+### Changed
+
+- `Menu` and `Select` popups now use the same surface as the blockchain dropdown.
+
 ## [0.6.1] — 2026-10-20
 
 ### Fixed
