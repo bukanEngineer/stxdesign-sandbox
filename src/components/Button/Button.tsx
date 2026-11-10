@@ -16,10 +16,7 @@ export type ButtonProps = BaseButton.Props & {
   endIcon?: IconSource;
 };
 
-/**
- * Button built on Base UI's Button. Use `render` to render as another element,
- * e.g. `<Button render={<a href="/" />} nativeButton={false}>Home</Button>`.
- */
+/** Button built on Base UI's Button. */
 export function Button({
   variant = "primary",
   size = "lg",

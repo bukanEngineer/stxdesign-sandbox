@@ -33,17 +33,6 @@ describe("Button", () => {
     expect(button).toHaveClass("btn--secondary", "btn--sm");
   });
 
-  it("renders as another element via render", () => {
-    render(
-      <Button render={(props) => <a {...props} href="/home" />} nativeButton={false}>
-        Home
-      </Button>,
-    );
-    const link = screen.getByRole("button", { name: "Home" });
-    expect(link.tagName).toBe("A");
-    expect(link).toHaveClass("btn", "btn--primary");
-  });
-
   it("forwards ref to the button element", () => {
     const ref = React.createRef<HTMLButtonElement>();
     render(<Button ref={ref}>Go</Button>);

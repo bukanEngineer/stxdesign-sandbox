@@ -82,11 +82,3 @@ export const States: Story = {
     );
   },
 };
-
-export const AsLink: Story = {
-  render: () => (
-    <Button render={(props) => <a {...props} href="#top" />} nativeButton={false} variant="secondary">
-      Rendered as a link
-    </Button>
-  ),
-};
