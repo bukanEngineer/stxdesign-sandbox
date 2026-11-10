@@ -8,7 +8,7 @@ const meta: Meta<typeof IconButton> = {
   parameters: { layout: "centered" },
   argTypes: {
     icon: { control: "text" },
-    variant: { control: "inline-radio", options: ["primary", "secondary", "tertiary"] },
+    variant: { control: "inline-radio", options: ["primary", "secondary", "tertiary", "destructive"] },
     shape: { control: "inline-radio", options: ["circle", "square"] },
     size: { control: "inline-radio", options: ["lg", "sm"] },
     disabled: { control: "boolean" },
@@ -22,6 +22,9 @@ type Story = StoryObj<typeof IconButton>;
 export const Primary: Story = { args: { variant: "primary" } };
 export const Secondary: Story = { args: { variant: "secondary" } };
 export const Tertiary: Story = { args: { variant: "tertiary" } };
+
+export const Destructive: Story = { args: { variant: "destructive", icon: "delete", label: "Delete" } };
+export const Toggle: Story = { args: { variant: "secondary", pressed: true, icon: "star", label: "Favourite" } };
 
 export const AllSizes: Story = {
   parameters: { layout: "padded" },

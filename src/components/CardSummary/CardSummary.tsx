@@ -16,6 +16,8 @@ export type CardSummaryItem = {
   label?: React.ReactNode;
   value?: React.ReactNode;
   info?: boolean;
+  /** Secondary text under the value */
+  helper?: React.ReactNode;
 };
 
 export type CardSummaryProps = Omit<React.ComponentProps<"section">, "title"> & {
@@ -65,6 +67,7 @@ export function CardSummary({
               label={item.label}
               value={item.value}
               info={item.info}
+              helper={item.helper}
               infoPlacement="value"
               infoSize={18}
             />

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { CardSummary } from "./CardSummary";
 import { renderSmoke } from "../../test-utils";
 
@@ -28,5 +28,10 @@ describe("CardSummary", () => {
     const row = container.querySelector(".card-detail-row");
     expect(row).toHaveAttribute("data-info-placement", "value");
     expect(row?.querySelector(".card-detail-row__value .card-detail-row__info")).not.toBeNull();
+  });
+
+  it("shows helper text on an item", () => {
+    render(<CardSummary items={[{ label: "Transfer fee", value: "1 XSGD", helper: "Fee for 10 XSGD or more" }]} />);
+    expect(screen.getByText("Fee for 10 XSGD or more")).toBeInTheDocument();
   });
 });

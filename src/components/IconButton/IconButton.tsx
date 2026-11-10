@@ -26,6 +26,8 @@ export type IconButtonProps = Omit<BaseButton.Props, "children"> & {
    * Use for small buttons on touch screens; `lg` is already 48px, so it has no effect there.
    */
   touchTarget?: boolean;
+  /** Makes the button a toggle: sets `aria-pressed` and the active style. Omit for a plain button. */
+  pressed?: boolean;
 };
 
 /**
@@ -41,6 +43,7 @@ export function IconButton({
   size = "lg",
   label,
   touchTarget = false,
+  pressed,
   type = "button",
   className,
   ...props
@@ -49,6 +52,7 @@ export function IconButton({
     <BaseButton
       type={type}
       aria-label={label}
+      aria-pressed={pressed}
       className={withClass(
         [
           iconButtonClasses.root,

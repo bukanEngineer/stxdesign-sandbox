@@ -20,6 +20,8 @@ export type AlertProps = React.ComponentProps<"div"> & {
   actions?: React.ReactNode;
   /** Placement of actions */
   actionPlacement?: "bottom" | "inline";
+  /** Pin the alert to the top of its scroll container so it stays visible (e.g. a critical error on a long form) */
+  sticky?: boolean;
 };
 
 const DEFAULT_ICONS: Record<AlertTone, IconName> = {
@@ -76,6 +78,7 @@ export function Alert({
   onDismiss,
   actions,
   actionPlacement = "bottom",
+  sticky = false,
   className,
   ...rest
 }: AlertProps) {
@@ -85,6 +88,7 @@ export function Alert({
     <div
       role="alert"
       data-tone={tone}
+      data-sticky={sticky || undefined}
       className={cn("alert", `alert--${tone}`, className)}
       {...rest}
     >

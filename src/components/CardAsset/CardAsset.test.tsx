@@ -62,4 +62,16 @@ describe("CardAsset", () => {
     expect(onAdd).toHaveBeenCalledWith(assets[0]);
     expect(onSend).toHaveBeenCalledWith(assets[0]);
   });
+
+  it("renders the toggle and header actions slots", () => {
+    render(
+      <CardAsset
+        assets={[]}
+        toggle={<span>Cash toggle</span>}
+        actions={<button type="button">View all</button>}
+      />,
+    );
+    expect(screen.getByText("Cash toggle")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "View all" })).toBeInTheDocument();
+  });
 });

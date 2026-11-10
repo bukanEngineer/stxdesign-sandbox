@@ -4,6 +4,7 @@ export const iconButtonClasses = {
     primary: "icon-btn--primary",
     secondary: "icon-btn--secondary",
     tertiary: "icon-btn--tertiary",
+    destructive: "icon-btn--destructive",
   },
   shape: {
     circle: "icon-btn--circle",

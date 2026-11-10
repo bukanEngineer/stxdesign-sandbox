@@ -130,6 +130,8 @@ export {
 export type {
   CardProps,
   CardShadow,
+  CardRadius,
+  CardPadding,
   CardHeaderProps,
   CardTitleProps,
   CardDescriptionProps,
@@ -306,7 +308,7 @@ export type {
   SidebarTriggerProps,
 } from "./components/Sidebar";
 export { TopNavigation } from "./components/TopNavigation";
-export type { TopNavigationProps, TopNavigationUser } from "./components/TopNavigation";
+export type { TopNavigationProps, TopNavigationUser, TopNavigationItem } from "./components/TopNavigation";
 export { OtcBanner } from "./components/OtcBanner";
 export type { OtcBannerProps } from "./components/OtcBanner";
 
@@ -418,3 +420,10 @@ export { TopNavProfileMenu } from "./components/TopNavProfileMenu";
 export type { TopNavProfileMenuProps, TopNavAccount } from "./components/TopNavProfileMenu";
 export { BottomSheetBlockchain } from "./components/BottomSheetBlockchain";
 export type { BottomSheetBlockchainProps, BlockchainOption } from "./components/BottomSheetBlockchain";
+
+export { Text, Caption, Footnote } from "./components/Text";
+export type { TextProps, TextVariant, TextTone } from "./components/Text";
+export { ActivityRow } from "./components/ActivityRow";
+export type { ActivityRowProps, ActivityAmountTone } from "./components/ActivityRow";
+export { ActionButton } from "./components/ActionButton";
+export type { ActionButtonProps } from "./components/ActionButton";

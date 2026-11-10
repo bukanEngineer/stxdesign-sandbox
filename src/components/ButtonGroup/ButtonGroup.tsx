@@ -4,7 +4,7 @@ import type { ButtonVariant } from "../Button/styles";
 import "./ButtonGroup.css";
 
 /** Lower rank = less emphasis = placed further left. */
-const VARIANT_RANK: Record<ButtonVariant, number> = { tertiary: 0, secondary: 1, primary: 2 };
+const VARIANT_RANK: Record<ButtonVariant, number> = { tertiary: 0, secondary: 1, primary: 2, destructive: 2 };
 
 export type ButtonGroupProps = Omit<React.ComponentProps<"div">, "children"> & {
   /**

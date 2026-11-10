@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "../Icon/Icon";
-import { Card } from "../Card/Card";
+import { Card, CardHeader } from "../Card/Card";
 import { List } from "../List/List";
 import { ListAsset } from "../ListAsset/ListAsset";
 import { cn } from "../../lib/cn";
@@ -24,6 +24,10 @@ export type CardAssetProps = Omit<React.ComponentProps<"section">, "title"> & {
   title?: React.ReactNode;
   assets?: CardAssetItem[];
   banner?: React.ReactNode;
+  /** Control beside the title, e.g. a Cash / Stablecoin `Tabs` toggle */
+  toggle?: React.ReactNode;
+  /** Controls on the right of the header, e.g. a "View all" link */
+  actions?: React.ReactNode;
   onRefresh?: () => void;
   onAdd?: (asset: CardAssetItem) => void;
   onSend?: (asset: CardAssetItem) => void;
@@ -34,6 +38,8 @@ export function CardAsset({
   title = "My Assets",
   assets = [],
   banner,
+  toggle,
+  actions,
   onRefresh,
   onAdd,
   onSend,
@@ -42,7 +48,7 @@ export function CardAsset({
 }: CardAssetProps) {
   return (
     <Card className={cn("card-asset", className)} {...rest}>
-      <header className="card-asset__header">
+      <CardHeader className="card-asset__header" actions={actions}>
         <div className="card-asset__title">
           <span>{title}</span>
           {onRefresh && (
@@ -56,7 +62,8 @@ export function CardAsset({
             </button>
           )}
         </div>
-      </header>
+        {toggle}
+      </CardHeader>
 
       {banner && (
         <div className="card-asset__banner" role="status">

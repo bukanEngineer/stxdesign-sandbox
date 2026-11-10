@@ -62,4 +62,10 @@ describe("Input", () => {
     render(<Demo error="Required" />);
     expect(screen.getByText("Required")).toBeInTheDocument();
   });
+
+  it("renders a prefix panel before the control", () => {
+    const { container } = render(<Input prefixPanel="+65" aria-label="Phone" />);
+    expect(screen.getByText("+65")).toHaveClass("input__prefix");
+    expect(container.querySelector(".input__prefix + .input__control")).not.toBeNull();
+  });
 });

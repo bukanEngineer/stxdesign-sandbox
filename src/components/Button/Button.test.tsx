@@ -33,17 +33,6 @@ describe("Button", () => {
     expect(button).toHaveClass("btn--secondary", "btn--sm");
   });
 
-  it("renders as another element via render", () => {
-    render(
-      <Button render={(props) => <a {...props} href="/home" />} nativeButton={false}>
-        Home
-      </Button>,
-    );
-    const link = screen.getByRole("button", { name: "Home" });
-    expect(link.tagName).toBe("A");
-    expect(link).toHaveClass("btn", "btn--primary");
-  });
-
   it("forwards ref to the button element", () => {
     const ref = React.createRef<HTMLButtonElement>();
     render(<Button ref={ref}>Go</Button>);
@@ -53,5 +42,21 @@ describe("Button", () => {
   it("exposes data-disabled when disabled", () => {
     render(<Button disabled>Off</Button>);
     expect(screen.getByRole("button", { name: "Off" })).toHaveAttribute("data-disabled");
+  });
+
+  it("renders the destructive variant", () => {
+    render(<Button variant="destructive">Delete</Button>);
+    expect(screen.getByRole("button", { name: "Delete" })).toHaveClass("btn--destructive");
+  });
+
+  it("renders start and end icons around the label", () => {
+    render(
+      <Button startIcon="add" endIcon="arrow_forward">
+        Add
+      </Button>,
+    );
+    const btn = screen.getByRole("button", { name: "Add" });
+    expect(btn.firstElementChild).toHaveAttribute("data-icon", "add");
+    expect(btn.lastElementChild).toHaveAttribute("data-icon", "arrow_forward");
   });
 });

@@ -1,2 +1,2 @@
 export { TopNavigation } from "./TopNavigation";
-export type { TopNavigationProps, TopNavigationUser } from "./TopNavigation";
+export type { TopNavigationProps, TopNavigationUser, TopNavigationItem } from "./TopNavigation";

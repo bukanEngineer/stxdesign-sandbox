@@ -77,6 +77,7 @@ export const theme = {
     xl: "var(--space-5)",
     xxl: "var(--space-6)",
     xxxl: "var(--space-7)",
+    section: "var(--space-8)",
   },
   radius: {
     sm: "var(--radius-sm)",

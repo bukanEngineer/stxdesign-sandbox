@@ -33,7 +33,7 @@
   color: var(--text-primary);
 }
 .btn--primary:hover { background: var(--btn-primary-hovered); }
-.btn--primary:active { background: var(--btn-primary-pressed); color: var(--text-inverse); }
+.btn--primary:active { background: var(--btn-primary-pressed); }
 
 .btn--secondary {
   background: transparent;
@@ -51,6 +51,18 @@
 }
 .btn--tertiary:hover { background: var(--btn-tertiary-hovered); }
 .btn--tertiary:active { background: var(--btn-tertiary-pressed); }
+
+.btn--destructive {
+  background: var(--status-critical);
+  color: var(--text-inverse);
+}
+.btn--destructive:hover { background: var(--btn-destructive-hovered); }
+.btn--destructive:active { background: var(--btn-destructive-pressed); }
+.btn--destructive:focus-visible { outline-color: var(--status-critical); }
+
+/* leading / trailing icons */
+.btn .sx-icon { flex: 0 0 auto; font-size: 20px; }
+.btn--lg .sx-icon { font-size: 24px; }
 
 .btn[data-disabled] {
   background: var(--surface-disabled);

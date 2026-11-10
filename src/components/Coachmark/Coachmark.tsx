@@ -21,6 +21,8 @@ export type CoachmarkProps = {
   prevLabel?: string;
   /** Popover side relative to the target. */
   placement?: "top" | "bottom" | "left" | "right";
+  /** Alignment of the popup against the target along the placement edge */
+  align?: "start" | "center" | "end";
   className?: string;
 };
 
@@ -52,6 +54,7 @@ export function Coachmark({
   doneLabel = "Got it",
   prevLabel = "Back",
   placement = "bottom",
+  align = "start",
   className = "",
 }: CoachmarkProps) {
   const anchor = open ? (target?.current ?? null) : null;
@@ -104,7 +107,7 @@ export function Coachmark({
         <Popover.Popup
           side={placement}
           sideOffset={12}
-          align="start"
+          align={align}
           anchor={anchor}
           className={cn("coachmark", className)}
           positionerProps={{ className: "coachmark__positioner" }}

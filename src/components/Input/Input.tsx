@@ -18,6 +18,8 @@ export type InputProps = {
   type?: string;
   /** Trailing action button (e.g. Apply) */
   trailingButton?: InputTrailingButton;
+  /** Panel before the text, separated by a divider. Use for a dial code or currency, e.g. "+65". */
+  prefixPanel?: React.ReactNode;
   /** Additional CSS class names on the chrome wrapper */
   className?: string;
   value?: string;
@@ -49,6 +51,7 @@ export function Input({
   onChange,
   onValueChange,
   trailingButton,
+  prefixPanel,
   ...inputProps
 }: InputProps) {
   const isPassword = type === "password";
@@ -77,6 +80,7 @@ export function Input({
       )}
       data-disabled={disabled || undefined}
     >
+      {prefixPanel != null && <span className="input__prefix">{prefixPanel}</span>}
       {isSearch && (
         <Icon name="search" className="input__lead" />
       )}

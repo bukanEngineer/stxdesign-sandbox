@@ -9,6 +9,7 @@ export const buttonClasses = {
     primary: "btn--primary",
     secondary: "btn--secondary",
     tertiary: "btn--tertiary",
+    destructive: "btn--destructive",
   },
   size: {
     lg: "btn--lg",
