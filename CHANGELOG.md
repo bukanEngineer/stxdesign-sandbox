@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.7.0] — 2026-11-10
+
 ### Added
 
 - `Button` `destructive` variant (red background), also on `IconButton` and `ButtonGroup`. New tokens `--btn-destructive-hovered` and `--btn-destructive-pressed`.
@@ -27,6 +29,10 @@
 
 - **Breaking (behaviour):** `QR` now renders locally as inline SVG instead of requesting an image from `api.qrserver.com`, so the encoded value (such as a deposit address) never leaves the browser. It no longer renders an `<img>` by default. Passing `urlBuilder` still uses a remote image and is now documented as opt-in.
 - Adds a dependency on `uqr` (zero dependencies) for local QR encoding.
+
+### Fixed
+
+- Primary `Button` keeps its label colour when pressed.
 
 ## [0.6.2] — 2026-11-05
 
