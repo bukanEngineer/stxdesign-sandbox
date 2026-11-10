@@ -1,5 +1,6 @@
 import React from "react";
 import { QR } from "./QR";
+import { AssetMark } from "../AssetMark/AssetMark";
 
 export default {
   title: "Atoms/QR",
@@ -29,3 +30,7 @@ export const Default = {
 
 export const Small = { args: { value: "https://straitsx.com/pay/abc123", size: 140, label: "Scan to pay" } };
 export const NoLabel = { args: { value: "hello world", size: 200 } };
+
+export const WithLogo = {
+  args: { value: "0xA1B2C3D4E5F60718293AeCb98765FaB1234567890", label: "Deposit XSGD", logo: <AssetMark asset="ethereum" size={40} /> },
+};

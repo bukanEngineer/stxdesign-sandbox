@@ -52,6 +52,18 @@
 .btn--tertiary:hover { background: var(--btn-tertiary-hovered); }
 .btn--tertiary:active { background: var(--btn-tertiary-pressed); }
 
+.btn--destructive {
+  background: var(--status-critical);
+  color: var(--text-inverse);
+}
+.btn--destructive:hover { background: var(--btn-destructive-hovered); }
+.btn--destructive:active { background: var(--btn-destructive-pressed); }
+.btn--destructive:focus-visible { outline-color: var(--status-critical); }
+
+/* leading / trailing icons */
+.btn .sx-icon { flex: 0 0 auto; font-size: 20px; }
+.btn--lg .sx-icon { font-size: 24px; }
+
 .btn[data-disabled] {
   background: var(--surface-disabled);
   color: var(--disabled-on-surface);

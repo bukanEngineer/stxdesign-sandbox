@@ -54,4 +54,20 @@ describe("Button", () => {
     render(<Button disabled>Off</Button>);
     expect(screen.getByRole("button", { name: "Off" })).toHaveAttribute("data-disabled");
   });
+
+  it("renders the destructive variant", () => {
+    render(<Button variant="destructive">Delete</Button>);
+    expect(screen.getByRole("button", { name: "Delete" })).toHaveClass("btn--destructive");
+  });
+
+  it("renders start and end icons around the label", () => {
+    render(
+      <Button startIcon="add" endIcon="arrow_forward">
+        Add
+      </Button>,
+    );
+    const btn = screen.getByRole("button", { name: "Add" });
+    expect(btn.firstElementChild).toHaveAttribute("data-icon", "add");
+    expect(btn.lastElementChild).toHaveAttribute("data-icon", "arrow_forward");
+  });
 });

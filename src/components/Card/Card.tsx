@@ -5,26 +5,56 @@ import "./Card.css";
 
 export type CardShadow = false | 1 | 2 | 3;
 
+export type CardRadius = "md" | "lg";
+export type CardPadding = "none" | "md" | "lg";
+
 export type CardProps = React.ComponentProps<"section"> & {
   /** Shadow elevation (1–3), or `false` for none */
   shadow?: CardShadow;
+  /** Corner radius: `md` (8px) for small cards, `lg` (12px) for larger section panels */
+  radius?: CardRadius;
+  /** Inner padding: `md` (20px, default), `lg` (24px) or `none` */
+  padding?: CardPadding;
 };
 
 /** Surface container. Compose with `CardHeader` / `CardTitle` / `CardContent` / `CardFooter`. */
-export function Card({ shadow = false, className, ...props }: CardProps) {
+export function Card({
+  shadow = false,
+  radius = "md",
+  padding = "md",
+  className,
+  ...props
+}: CardProps) {
   return (
     <section
       data-shadow={shadow || undefined}
+      data-radius={radius === "md" ? undefined : radius}
+      data-padding={padding === "md" ? undefined : padding}
       className={cn("card", className)}
       {...props}
     />
   );
 }
 
-export type CardHeaderProps = React.ComponentProps<"div">;
+export type CardHeaderProps = React.ComponentProps<"div"> & {
+  /** Controls on the right of the heading, e.g. a refresh button or a "View all" link */
+  actions?: React.ReactNode;
+};
 
-export function CardHeader({ className, ...props }: CardHeaderProps) {
-  return <div className={cn("card__header", className)} {...props} />;
+export function CardHeader({ actions, className, children, ...props }: CardHeaderProps) {
+  if (actions == null) {
+    return (
+      <div className={cn("card__header", className)} {...props}>
+        {children}
+      </div>
+    );
+  }
+  return (
+    <div className={cn("card__header", "card__header--with-actions", className)} {...props}>
+      <div className="card__heading">{children}</div>
+      <div className="card__actions">{actions}</div>
+    </div>
+  );
 }
 
 export type CardTitleProps = React.ComponentProps<"h3">;
@@ -62,6 +92,8 @@ export type CardDetailRowProps = Omit<React.ComponentProps<"div">, "children"> &
   infoPlacement?: "label" | "value";
   /** Info icon size in px. `CardStatus` uses 16; `CardSummary` uses 18. */
   infoSize?: number;
+  /** Secondary text under the value, e.g. "Fee for transactions of 10 XSGD or more" */
+  helper?: React.ReactNode;
 };
 
 /**
@@ -75,6 +107,7 @@ export function CardDetailRow({
   info = false,
   infoPlacement = "label",
   infoSize = 16,
+  helper,
   className,
   ...props
 }: CardDetailRowProps) {
@@ -86,6 +119,7 @@ export function CardDetailRow({
     <div
       className={cn("card-detail-row", className)}
       data-info-placement={infoPlacement}
+      data-has-helper={helper != null ? "" : undefined}
       {...props}
     >
       <dt className="card-detail-row__label">
@@ -95,6 +129,7 @@ export function CardDetailRow({
       <dd className="card-detail-row__value">
         {infoPlacement === "value" && infoIcon}
         {value}
+        {helper != null && <span className="card-detail-row__helper">{helper}</span>}
       </dd>
     </div>
   );

@@ -7,10 +7,16 @@
   padding: var(--space-3) var(--space-5) var(--space-5);
 }
 
-.card-asset__header {
-  display: flex;
+.card-asset__header.card__header {
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.card-asset__header .card__heading {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 .card-asset__title {
   display: flex;

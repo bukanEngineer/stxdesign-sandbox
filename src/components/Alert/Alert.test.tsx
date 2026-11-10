@@ -127,4 +127,11 @@ describe("Alert", () => {
     );
     expect(container.querySelectorAll("[role='alert']")).toHaveLength(5);
   });
+
+  it("marks the alert sticky when `sticky` is set", () => {
+    const { container, rerender } = render(<Alert tone="critical">Failed</Alert>);
+    expect(container.firstElementChild).not.toHaveAttribute("data-sticky");
+    rerender(<Alert tone="critical" sticky>Failed</Alert>);
+    expect(container.firstElementChild).toHaveAttribute("data-sticky", "true");
+  });
 });

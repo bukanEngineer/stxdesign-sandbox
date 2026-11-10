@@ -108,4 +108,25 @@ describe("CardDetailRow", () => {
       "value",
     );
   });
+
+  it("applies radius and padding options", () => {
+    const { container } = render(<Card radius="lg" padding="lg">x</Card>);
+    expect(container.firstElementChild).toHaveAttribute("data-radius", "lg");
+    expect(container.firstElementChild).toHaveAttribute("data-padding", "lg");
+  });
+
+  it("renders CardHeader actions beside the heading", () => {
+    render(
+      <CardHeader actions={<button type="button">View all</button>}>
+        <CardTitle>Latest</CardTitle>
+      </CardHeader>,
+    );
+    expect(screen.getByRole("button", { name: "View all" })).toBeInTheDocument();
+    expect(screen.getByText("Latest").closest(".card__heading")).not.toBeNull();
+  });
+
+  it("renders helper text under a detail row value", () => {
+    render(<CardDetailRow label="Fee" value="1 XSGD" helper="For 10 XSGD or more" />);
+    expect(screen.getByText("For 10 XSGD or more")).toBeInTheDocument();
+  });
 });

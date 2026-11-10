@@ -1,5 +1,7 @@
 import React from "react";
 import { cn } from "../../lib/cn";
+import { IconButton } from "../IconButton/IconButton";
+import { resolveIcon, type IconSource } from "../Icon/Icon";
 import "./PageTitle.css";
 
 export type PageTitleProps = Omit<React.ComponentProps<"header">, "title"> & {
@@ -11,6 +13,12 @@ export type PageTitleProps = Omit<React.ComponentProps<"header">, "title"> & {
   breadcrumb?: React.ReactNode;
   /** Action buttons */
   actions?: React.ReactNode;
+  /** Icon before the title: an icon name, or your own element */
+  icon?: IconSource;
+  /** Shows a back button before the title and calls this when clicked */
+  onBack?: () => void;
+  /** Accessible label for the back button */
+  backLabel?: string;
 };
 
 /**
@@ -27,6 +35,9 @@ export function PageTitle({
   subtitle,
   breadcrumb,
   actions,
+  icon,
+  onBack,
+  backLabel = "Back",
   className,
   ref,
   ...rest
@@ -35,7 +46,26 @@ export function PageTitle({
     <header ref={ref} className={cn("page-title", className)} {...rest}>
       <div className="page-title__head">
         {breadcrumb}
-        <h1 className="page-title__h1">{title}</h1>
+        <div className="page-title__row">
+          {onBack && (
+            <IconButton
+              icon="chevron_left"
+              variant="tertiary"
+              size="sm"
+              label={backLabel}
+              onClick={onBack}
+              className="page-title__back"
+            />
+          )}
+          <h1 className="page-title__h1">
+            {icon != null && (
+              <span className="page-title__icon" aria-hidden="true">
+                {resolveIcon(icon)}
+              </span>
+            )}
+            {title}
+          </h1>
+        </div>
         {subtitle != null && <p className="page-title__sub">{subtitle}</p>}
       </div>
       {actions != null && (

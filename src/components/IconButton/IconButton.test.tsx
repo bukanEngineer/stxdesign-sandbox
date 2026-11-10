@@ -93,4 +93,18 @@ describe("IconButton", () => {
     rerender(<IconButton {...baseProps} size="sm" touchTarget />);
     expect(screen.getByRole("button", { name: "Close" })).toHaveClass("icon-btn--sm", "icon-btn--touch");
   });
+
+  it("sets aria-pressed only when `pressed` is passed", () => {
+    const { rerender } = render(<IconButton {...baseProps} />);
+    expect(screen.getByRole("button", { name: "Close" })).not.toHaveAttribute("aria-pressed");
+    rerender(<IconButton {...baseProps} pressed />);
+    expect(screen.getByRole("button", { name: "Close" })).toHaveAttribute("aria-pressed", "true");
+    rerender(<IconButton {...baseProps} pressed={false} />);
+    expect(screen.getByRole("button", { name: "Close" })).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("renders the destructive variant", () => {
+    render(<IconButton {...baseProps} variant="destructive" />);
+    expect(screen.getByRole("button", { name: "Close" })).toHaveClass("icon-btn--destructive");
+  });
 });

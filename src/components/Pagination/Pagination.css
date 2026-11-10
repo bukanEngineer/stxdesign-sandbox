@@ -103,3 +103,6 @@
 .pagination__goto-btn:hover {
   background: var(--surface-secondary);
 }
+
+.pagination__size { display: inline-flex; align-items: center; gap: var(--space-2); margin-right: var(--space-4); }
+.pagination__size-label { font: var(--body-small); color: var(--text-secondary); white-space: nowrap; }

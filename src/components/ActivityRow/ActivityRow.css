@@ -1,0 +1,27 @@
+.activity-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+  padding: var(--space-2) 0;
+}
+.activity-row__icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+}
+.activity-row__icon .sx-icon { font-size: 20px; }
+.activity-row__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.activity-row__title { font: var(--body-bold-medium); color: var(--text-primary); }
+.activity-row__meta { font: var(--body-small); color: var(--text-secondary); }
+.activity-row__amount-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex: 0 0 auto; }
+.activity-row__amount { font: var(--body-bold-medium); color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.activity-row__amount[data-tone="positive"] { color: var(--status-positive); }
+.activity-row__amount[data-tone="negative"] { color: var(--status-critical); }
+.activity-row__amount-sub { font: var(--body-small); color: var(--text-secondary); font-variant-numeric: tabular-nums; }

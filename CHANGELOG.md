@@ -1,5 +1,33 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- `Button` `destructive` variant (red background), also on `IconButton` and `ButtonGroup`. New tokens `--btn-destructive-hovered` and `--btn-destructive-pressed`.
+- `Button` `startIcon` and `endIcon` props.
+- `IconButton` `pressed` prop for toggle buttons (sets `aria-pressed` and the on style).
+- `Alert` `sticky` prop pins the alert to the top of its scroll container.
+- `--space-8` (32px) token and `spacing.section` in the theme, for page rhythm.
+- `Card` `radius` (`md` | `lg`) and `padding` (`none` | `md` | `lg`) props, so a larger section panel is a `Card`, not a new component.
+- `CardHeader` `actions` slot, for refresh buttons and "View all" links beside the heading.
+- `CardAsset` `toggle` and `actions` slots in the header; the header is now built on `CardHeader`.
+- `CardSummary` item `helper` text under the value (also `CardDetailRow` `helper`).
+- `QR` `logo` prop for a centre mark.
+- `Text`, `Caption` and `Footnote`: typography wrappers over the type scale, with `primary`, `secondary`, `inverse`, `positive` and `critical` tones.
+- `ActivityRow`: one row of a recent-activity list, with an icon badge, status and date, and a toned amount.
+- `ActionButton`: icon button with a caption underneath.
+- `Input` `prefixPanel` for a dial code or currency panel before the text.
+- `PageTitle` `onBack` / `backLabel` (back button) and `icon`.
+- `TopNavigation` `items`, `maxVisibleItems` and `moreLabel`: navigation items with a "More" menu. Hidden below 1280px.
+- `PaginationNav` `pageSizeOptions`, `onPageSizeChange` and `pageSizeLabel`: items-per-page selector.
+- `Coachmark` `align` (`start` | `center` | `end`).
+
+### Changed
+
+- **Breaking (behaviour):** `QR` now renders locally as inline SVG instead of requesting an image from `api.qrserver.com`, so the encoded value (such as a deposit address) never leaves the browser. It no longer renders an `<img>` by default. Passing `urlBuilder` still uses a remote image and is now documented as opt-in.
+- Adds a dependency on `uqr` (zero dependencies) for local QR encoding.
+
 ## [0.6.2] — 2026-11-05
 
 ### Fixed

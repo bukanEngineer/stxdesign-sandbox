@@ -16,6 +16,16 @@ export type TopNavigationUser = {
   role?: string;
 };
 
+export type TopNavigationItem = {
+  id: string;
+  label: string;
+  /** Renders a link when set, a button otherwise */
+  href?: string;
+  /** Marks the current page */
+  active?: boolean;
+  onClick?: () => void;
+};
+
 export type TopNavigationProps = React.ComponentProps<"header"> & {
   account?: "personal" | "business" | "sandbox";
   user?: TopNavigationUser;
@@ -25,6 +35,12 @@ export type TopNavigationProps = React.ComponentProps<"header"> & {
   onNotificationsClick?: () => void;
   /** Profile menu action handler; receives action id (e.g. "logout") */
   onMenuAction?: (actionId: string) => void;
+  /** Navigation items shown after the logo area. Hidden below 1280px, where the sidebar takes over. */
+  items?: TopNavigationItem[];
+  /** How many items stay visible; the rest go into a "More" menu. Default: all. */
+  maxVisibleItems?: number;
+  /** Label of the overflow menu trigger */
+  moreLabel?: string;
 };
 
 export function TopNavigation({
@@ -34,6 +50,9 @@ export function TopNavigation({
   onMenuClick,
   onNotificationsClick,
   onMenuAction,
+  items = [],
+  maxVisibleItems = Infinity,
+  moreLabel = "More",
   className,
   children,
   ...rest
@@ -90,6 +109,34 @@ export function TopNavigation({
         className="topnav__hamburger"
       />
 
+      {items.length > 0 && (
+        <nav className="topnav__nav" aria-label="Primary">
+          {items.slice(0, maxVisibleItems).map((item) => (
+            <NavItem key={item.id} item={item} />
+          ))}
+          {items.length > maxVisibleItems && (
+            <Menu.Root>
+              <Menu.Trigger className="topnav__nav-item">
+                {moreLabel}
+                <Icon name="expand_more" />
+              </Menu.Trigger>
+              <Menu.Popup align="start">
+                {items.slice(maxVisibleItems).map((item) => (
+                  <Menu.Item
+                    key={item.id}
+                    onClick={item.onClick}
+                    render={item.href ? <a href={item.href} /> : undefined}
+                    nativeButton={item.href ? false : undefined}
+                  >
+                    {item.label}
+                  </Menu.Item>
+                ))}
+              </Menu.Popup>
+            </Menu.Root>
+          )}
+        </nav>
+      )}
+
       <div className="topnav__right">
         {children}
 
@@ -131,5 +178,22 @@ export function TopNavigation({
         </Menu.Root>
       </div>
     </header>
+  );
+}
+
+function NavItem({ item }: { item: TopNavigationItem }) {
+  const props = {
+    className: "topnav__nav-item",
+    "aria-current": item.active ? ("page" as const) : undefined,
+    "data-active": item.active || undefined,
+  };
+  return item.href ? (
+    <a href={item.href} onClick={item.onClick} {...props}>
+      {item.label}
+    </a>
+  ) : (
+    <button type="button" onClick={item.onClick} {...props}>
+      {item.label}
+    </button>
   );
 }

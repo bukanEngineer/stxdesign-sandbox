@@ -2,6 +2,7 @@ import React from "react";
 import { cn } from "../../lib/cn";
 import "./Pagination.css";
 import { Icon } from "../Icon/Icon";
+import { Select } from "../Select/Select";
 
 function range(from: number, to: number): number[] {
   const out: number[] = [];
@@ -151,6 +152,12 @@ export type PaginationNavProps = Omit<PaginationProps, "children"> & {
   totalItems?: number;
   /** Items per page (for summary display) */
   pageSize?: number;
+  /** Options for an "items per page" selector. The selector shows when this and `onPageSizeChange` are set. */
+  pageSizeOptions?: number[];
+  /** Called with the chosen page size */
+  onPageSizeChange?: (pageSize: number) => void;
+  /** Label of the page size selector */
+  pageSizeLabel?: string;
 };
 
 /**
@@ -166,9 +173,13 @@ export function PaginationNav({
   showSummary = false,
   totalItems,
   pageSize,
+  pageSizeOptions,
+  onPageSizeChange,
+  pageSizeLabel = "Rows per page",
   className,
   ...rest
 }: PaginationNavProps) {
+  const sizeLabelId = React.useId();
   const pages = buildPaginationPages(page, totalPages, siblings);
   const go = (p: number) => {
     if (p < 1 || p > totalPages || p === page) return;
@@ -177,6 +188,34 @@ export function PaginationNav({
 
   return (
     <Pagination className={className} {...rest}>
+      {pageSizeOptions && onPageSizeChange && pageSize != null && (
+        <div className="pagination__size">
+          <span className="pagination__size-label" id={sizeLabelId}>{pageSizeLabel}</span>
+          <Select.Root
+            items={pageSizeOptions.map((n) => ({ value: n, label: String(n) }))}
+            value={pageSize}
+            onValueChange={(v) => {
+              if (typeof v === "number") onPageSizeChange(v);
+            }}
+          >
+            <Select.Control>
+              <Select.Trigger size="small" aria-labelledby={sizeLabelId}>
+                <Select.Value />
+                <Select.Icon />
+              </Select.Trigger>
+            </Select.Control>
+            <Select.Popup>
+              <Select.List>
+                {pageSizeOptions.map((n) => (
+                  <Select.Item key={n} value={n}>
+                    {n}
+                  </Select.Item>
+                ))}
+              </Select.List>
+            </Select.Popup>
+          </Select.Root>
+        </div>
+      )}
       {showSummary && totalItems != null && pageSize != null && (
         <PaginationSummary>
           {Math.min((page - 1) * pageSize + 1, totalItems)}–

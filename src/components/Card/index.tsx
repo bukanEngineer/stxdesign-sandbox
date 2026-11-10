@@ -10,6 +10,8 @@ export {
 export type {
   CardProps,
   CardShadow,
+  CardRadius,
+  CardPadding,
   CardHeaderProps,
   CardTitleProps,
   CardDescriptionProps,

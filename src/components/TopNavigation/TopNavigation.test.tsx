@@ -207,4 +207,32 @@ describe("TopNavigation", () => {
       expect(container.querySelector(".badge")).not.toBeInTheDocument();
     });
   });
+
+  it("renders navigation items and marks the active one", () => {
+    render(
+      <TopNavigation
+        items={[
+          { id: "home", label: "Home", href: "/", active: true },
+          { id: "txns", label: "Transactions", href: "/txns" },
+        ]}
+      />,
+    );
+    expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("link", { name: "Transactions" })).not.toHaveAttribute("aria-current");
+  });
+
+  it("moves items beyond maxVisibleItems into a More menu", async () => {
+    render(
+      <TopNavigation
+        maxVisibleItems={1}
+        items={[
+          { id: "a", label: "Alpha", href: "/a" },
+          { id: "b", label: "Beta", href: "/b" },
+        ]}
+      />,
+    );
+    expect(screen.queryByText("Beta")).toBeNull();
+    await userEvent.click(screen.getByRole("button", { name: /More/ }));
+    expect(await screen.findByRole("menuitem", { name: "Beta" })).toBeInTheDocument();
+  });
 });

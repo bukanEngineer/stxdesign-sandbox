@@ -88,4 +88,25 @@ describe("Pagination", () => {
     );
     expect(screen.getByText(/11–20 of 100/)).toBeInTheDocument();
   });
+
+  it("shows a page size selector and reports changes", async () => {
+    const onPageSizeChange = vi.fn();
+    render(
+      <PaginationNav
+        page={1}
+        totalPages={5}
+        pageSize={10}
+        pageSizeOptions={[10, 25, 50]}
+        onPageSizeChange={onPageSizeChange}
+      />,
+    );
+    await userEvent.click(screen.getByRole("combobox", { name: "Rows per page" }));
+    await userEvent.click(await screen.findByRole("option", { name: "25" }));
+    expect(onPageSizeChange).toHaveBeenCalledWith(25);
+  });
+
+  it("hides the page size selector without options", () => {
+    render(<PaginationNav page={1} totalPages={5} pageSize={10} />);
+    expect(screen.queryByText("Rows per page")).toBeNull();
+  });
 });

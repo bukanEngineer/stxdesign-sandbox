@@ -7,7 +7,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   parameters: { layout: "centered" },
   argTypes: {
-    variant: { control: "inline-radio", options: ["primary", "secondary", "tertiary"] },
+    variant: { control: "inline-radio", options: ["primary", "secondary", "tertiary", "destructive"] },
     size: { control: "inline-radio", options: ["lg", "sm"] },
     disabled: { control: "boolean" },
     children: { control: "text" },
@@ -21,6 +21,9 @@ type Story = StoryObj<typeof Button>;
 export const Primary: Story = { args: { variant: "primary" } };
 export const Secondary: Story = { args: { variant: "secondary", children: "Cancel" } };
 export const Tertiary: Story = { args: { variant: "tertiary", children: "Learn more" } };
+export const Destructive: Story = { args: { variant: "destructive", children: "Delete account" } };
+export const WithStartIcon: Story = { args: { startIcon: "add", children: "Add recipient" } };
+export const WithEndIcon: Story = { args: { endIcon: "arrow_forward", children: "Continue" } };
 export const Disabled: Story = { args: { variant: "primary", disabled: true, children: "Submit" } };
 
 export const AllVariants: Story = {
@@ -30,6 +33,7 @@ export const AllVariants: Story = {
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="tertiary">Tertiary</Button>
+      <Button variant="destructive">Destructive</Button>
       <Button variant="primary" disabled>Disabled</Button>
     </div>
   ),

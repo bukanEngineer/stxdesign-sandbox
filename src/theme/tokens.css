@@ -93,6 +93,8 @@
   --btn-secondary-pressed: rgba(5, 73, 72, 0.15);
   --btn-tertiary-hovered:  rgba(5, 73, 72, 0.10);
   --btn-tertiary-pressed:  rgba(5, 73, 72, 0.15);
+  --btn-destructive-hovered: #c41110;
+  --btn-destructive-pressed: #a50e0d;
 
   /* ── Component/Input ── */
   --input-placeholder: #767676;  /* WCAG AA on --surface */
@@ -142,7 +144,7 @@
   /* ════════════════════════════════════════════════════════════════
    * 4. SPACING / RADIUS / ELEVATION
    * ════════════════════════════════════════════════════════════════ */
-  /* Padding scale — Figma "Padding Scale": 4 8 12 16 20 24 40 */
+  /* Padding scale — Figma "Padding Scale": 4 8 12 16 20 24 40, plus 32 for page rhythm (--space-8) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -150,6 +152,7 @@
   --space-5: 20px;
   --space-6: 24px;
   --space-7: 40px;
+  --space-8: 32px;  /* page rhythm: AppShell padding, gaps between page sections */
 
   /* Corner radius — Figma "Corner Radius": 4 / 8 / 12 / full */
   --radius-sm:   4px;    /* tags, chips */

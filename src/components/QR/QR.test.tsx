@@ -27,15 +27,21 @@ describe("QR", () => {
     assertClassNameForwarding(QR, { value: "test" });
   });
 
-  it("renders an image element for the QR code", () => {
+  it("renders the code locally as SVG without requesting an image", () => {
     const { container } = render(<QR value="data" />);
-    const img = container.querySelector("img");
-    expect(img).toBeInTheDocument();
+    expect(container.querySelector("svg.qr__img path")).toBeInTheDocument();
+    expect(container.querySelector("img")).not.toBeInTheDocument();
+  });
+
+  it("renders a centre logo", () => {
+    const { container } = render(<QR value="data" logo={<span data-testid="mark" />} />);
+    expect(screen.getByTestId("mark")).toBeInTheDocument();
+    expect(container.querySelector(".qr__logo")).toBeInTheDocument();
   });
 
   // C: Custom urlBuilder
   it("uses custom urlBuilder for image source", () => {
-    const urlBuilder = (value, size) =>
+    const urlBuilder = (value: string, size: number) =>
       `https://custom-api.com/qr?data=${value}&s=${size}`;
     const { container } = render(
       <QR value="hello" size={100} urlBuilder={urlBuilder} />,
@@ -49,6 +55,6 @@ describe("QR", () => {
   it("handles very long values without crashing", () => {
     const longValue = "https://example.com/" + "x".repeat(2000);
     const { container } = render(<QR value={longValue} />);
-    expect(container.querySelector("img")).toBeInTheDocument();
+    expect(container.querySelector("svg.qr__img")).toBeInTheDocument();
   });
 });

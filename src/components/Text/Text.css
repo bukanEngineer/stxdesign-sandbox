@@ -1,0 +1,6 @@
+.text[data-tone="primary"] { color: var(--text-primary); }
+.text[data-tone="secondary"] { color: var(--text-secondary); }
+.text[data-tone="inverse"] { color: var(--text-inverse); }
+.text[data-tone="positive"] { color: var(--status-positive); }
+.text[data-tone="critical"] { color: var(--status-critical); }
+p.text, h1.text, h2.text, h3.text, h4.text { margin: 0; }
