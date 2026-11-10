@@ -38,7 +38,7 @@
   color: var(--text-primary);
 }
 .icon-btn--primary:hover { background: var(--btn-primary-hovered); }
-.icon-btn--primary:active { background: var(--btn-primary-pressed); color: var(--text-inverse); }
+.icon-btn--primary:active { background: var(--btn-primary-pressed); }
 
 .icon-btn--secondary {
   background: transparent;
@@ -65,7 +65,7 @@
 /* toggle on state (aria-pressed): filled with the pressed tone of its variant */
 .icon-btn--secondary[aria-pressed="true"],
 .icon-btn--tertiary[aria-pressed="true"] { background: var(--btn-secondary-pressed); color: var(--btn-secondary-text); }
-.icon-btn--primary[aria-pressed="true"] { background: var(--btn-primary-pressed); color: var(--text-inverse); }
+.icon-btn--primary[aria-pressed="true"] { background: var(--btn-primary-pressed); color: var(--text-primary); }
 
 .icon-btn[data-disabled],
 .icon-btn[disabled] {

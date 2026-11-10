@@ -33,7 +33,7 @@
   color: var(--text-primary);
 }
 .btn--primary:hover { background: var(--btn-primary-hovered); }
-.btn--primary:active { background: var(--btn-primary-pressed); color: var(--text-inverse); }
+.btn--primary:active { background: var(--btn-primary-pressed); }
 
 .btn--secondary {
   background: transparent;
