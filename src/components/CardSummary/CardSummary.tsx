@@ -3,6 +3,7 @@ import React from "react";
 import { Icon } from "../Icon/Icon";
 import { Button } from "../Button/Button";
 import { Card, CardDetailRow } from "../Card/Card";
+import { ImportantNotes } from "../ImportantNotes/ImportantNotes";
 import { cn } from "../../lib/cn";
 import "./CardSummary.css";
 
@@ -86,13 +87,9 @@ export function CardSummary({
       )}
 
       {note && (
-        <div className="card-summary__note">
-          <span className="card-summary__note-bar" aria-hidden="true" />
-          <div className="card-summary__note-content">
-            {note.title && <p className="card-summary__note-title">{note.title}</p>}
-            {note.body && <p className="card-summary__note-body">{note.body}</p>}
-          </div>
-        </div>
+        <ImportantNotes title={note.title ? note.title : null}>
+          {note.body}
+        </ImportantNotes>
       )}
 
       {button && (
