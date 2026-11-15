@@ -4,7 +4,7 @@ import { SignIn } from "../examples/SignIn.jsx";
 
 export default {
   title: "Examples",
-  parameters: { layout: "fullscreen", chromatic: { viewports: [1440] } },
+  parameters: { layout: "fullscreen" },
 };
 
 export const BusinessDashboardScreen = { render: () => <BusinessDashboard /> };

@@ -11,8 +11,6 @@ const meta: Meta<typeof BottomSheet.Root> = {
   component: BottomSheet.Root,
   parameters: {
     layout: "centered",
-    // Sheets are a phone pattern: Chromatic should capture them at phone width too.
-    chromatic: { viewports: [360, 1024] },
   },
   argTypes: {
     dismissable: { control: "boolean" },

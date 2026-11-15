@@ -50,7 +50,7 @@ export const AllSizes: Story = {
 };
 
 /* Hover / pressed are forced with storybook-addon-pseudo-states (targeted by
- * id) so Chromatic can snapshot them without real pointer events. */
+ * id) to display them without real pointer events. */
 export const States: Story = {
   parameters: {
     layout: "padded",

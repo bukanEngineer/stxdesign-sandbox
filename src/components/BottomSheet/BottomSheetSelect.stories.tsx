@@ -7,7 +7,7 @@ import { Button } from "../Button";
 const meta: Meta<typeof BottomSheetSelect> = {
   title: "Patterns/Bottom Sheet/Select",
   component: BottomSheetSelect,
-  parameters: { layout: "centered", chromatic: { viewports: [360] } },
+  parameters: { layout: "centered" },
   argTypes: {
     searchable: { control: "boolean" },
     onValueChange: { action: "onValueChange" },

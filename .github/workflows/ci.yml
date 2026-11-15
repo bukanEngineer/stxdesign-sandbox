@@ -1,6 +1,6 @@
 name: "CI"
 
-# Lint, test, and build on every push and PR — the gate that should be green
+# Lint, test, and build the package and Storybook on every push and PR — the gate that should be green
 # before publishing to npm.
 
 on:
@@ -39,3 +39,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Build Storybook
+        run: npm run build-storybook

@@ -9,7 +9,6 @@ const config = {
   // measure, outline, highlight and test/interactions are built into core.
   addons: [
     "@storybook/addon-a11y",
-    "@chromatic-com/storybook",
     "@storybook/addon-mcp",
     "@storybook/addon-vitest",
     "@storybook/addon-docs",
