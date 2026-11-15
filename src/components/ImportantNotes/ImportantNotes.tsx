@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "../../lib/cn";
 import "./ImportantNotes.css";
 
-export type ImportantNotesProps = React.ComponentProps<"div"> & {
+export type ImportantNotesProps = Omit<React.ComponentProps<"div">, "title"> & {
   /**
    * Title above the description. Defaults to `"Important Notes:"`.
    * Pass `null` to hide the title.
