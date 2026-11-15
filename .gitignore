@@ -40,10 +40,6 @@ uploads/
 # Coverage
 coverage/
 
-# Chromatic
-chromatic.log
-chromatic-build-*.xml
-
 # Generated / scratch
 *.tsbuildinfo
 .cache/

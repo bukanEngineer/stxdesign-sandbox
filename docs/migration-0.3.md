@@ -176,4 +176,4 @@ These were soft-deprecated during the migration and **do not** exist in 0.3:
 3. Replace form labels with `Field.*`.
 4. Replace overlay / tabs / menu / select call sites with compound parts.
 5. Run the rename table find-and-replace.
-6. Smoke Storybook / Chromatic on the dashboard PR that lands beside this release.
+6. Smoke Storybook on the dashboard PR that lands beside this release.

@@ -7,11 +7,8 @@ npm install
 # 2. Run Storybook (http://localhost:6006)
 npm run storybook
 
-# 3. Build the static Storybook (used by Chromatic CI)
+# 3. Build the static Storybook
 npm run build-storybook
-
-# 4. Run Chromatic locally — needs CHROMATIC_PROJECT_TOKEN in env
-npx chromatic --project-token=<your-token>
 ```
 
 ## Using this package in an app
@@ -154,19 +151,13 @@ If bank names arrive at runtime (for example from an API), build the lookup in y
 
 `npm run build` compiles `src/` with Babel into `dist/` (ESM, `.jsx`/`.tsx` extensions preserved, cross-file imports rewritten to match), generates type declarations with `tsc`, and copies fonts/assets/CSS alongside — mirroring the `src/` layout so relative asset paths keep resolving. `npm run prepublishOnly` runs lint + test + build + a smoke test of the packed tarball automatically before `npm publish`.
 
-## Wiring up Chromatic
+## Continuous integration
 
-1. Sign in at [chromatic.com](https://www.chromatic.com) and link your GitHub repo. Chromatic gives you a **project token**.
-2. In your repo, go to **Settings → Secrets and variables → Actions → New repository secret** and add:
-   - Name: `CHROMATIC_PROJECT_TOKEN`
-   - Value: the token from step 1.
-3. Push to `main` or open a PR. The workflow at `.github/workflows/chromatic.yml` will build Storybook, upload it to Chromatic, and post a PR comment with the diff URL.
-
-The workflow uses `onlyChanged: true` (TurboSnap) so only stories whose dependencies changed get re-snapshotted — keeps your monthly snapshot budget low.
+Every push to `main` and pull request targeting `main` runs lint, tests, the package build, and the static Storybook build.
 
 ## Stable Storybook URL (Vercel)
 
-Chromatic build URLs change per run. Vercel serves the static Storybook at a stable URL and updates it on every push to `main` (Git integration on `bukanEngineer/stxdesign-sandbox`). PRs get preview URLs automatically.
+Vercel serves the static Storybook at a stable URL and updates it on every push to `main` (Git integration on `bukanEngineer/stxdesign-sandbox`). PRs get preview URLs automatically.
 
 Build is locked to Storybook via `vercel.json` and project settings:
 
@@ -174,7 +165,7 @@ Build is locked to Storybook via `vercel.json` and project settings:
 - Output Directory: `storybook-static`
 - Framework: Other (not the package `npm run build` → `dist/`)
 
-Chromatic (visual regression) and Vercel (hosted Storybook) both run from git pushes — they are independent. Local `npm run storybook` / Chromatic CLI does **not** update the Vercel URL; push to `main` (or open a PR for a preview).
+Local `npm run storybook` does **not** update the Vercel URL; push to `main` (or open a PR for a preview).
 
 ## Project layout
 
@@ -184,13 +175,12 @@ The source follows the `straitsx-frontend/packages/design-system` structure — 
 stxdesign-sandbox/
 ├── package.json
 ├── vite.config.js
-├── chromatic.config.json
 ├── vercel.json                 ← Storybook static deploy to Vercel
 ├── .storybook/
 │   ├── main.js                 ← stories glob + framework config
 │   └── preview.js              ← global styles + backgrounds + story sort
 ├── .github/workflows/
-│   └── chromatic.yml           ← visual regression on every PR
+│   └── ci.yml                  ← lint, tests, package and Storybook builds
 ├── scripts/                    ← build assets, logo generation, pack smoke test
 ├── src/
 │   ├── index.ts                ← package exports (component + constant + theme barrels)
