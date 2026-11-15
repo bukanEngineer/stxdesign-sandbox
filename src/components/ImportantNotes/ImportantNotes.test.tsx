@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { ImportantNotes } from "./ImportantNotes";
 import {
   renderSmoke,
@@ -9,24 +8,32 @@ import {
 } from "../../test-utils";
 
 describe("ImportantNotes", () => {
-  // A: Renderability
   it("renders with no props", () => {
     renderSmoke(ImportantNotes);
   });
 
-  it("renders with all optional props", () => {
+  it("renders the default title and body", () => {
     render(
-      <ImportantNotes tone="warning" title="Please note">
-        <p>Transfer may take 1-2 business days.</p>
+      <ImportantNotes>
+        Our verification process may take up to 1 business day.
       </ImportantNotes>,
     );
-    expect(screen.getByText("Please note")).toBeInTheDocument();
+    expect(screen.getByText("Important Notes:")).toBeInTheDocument();
     expect(
-      screen.getByText("Transfer may take 1-2 business days."),
+      screen.getByText("Our verification process may take up to 1 business day."),
     ).toBeInTheDocument();
   });
 
-  // B: Ergonomics
+  it("hides the title when title is null", () => {
+    render(
+      <ImportantNotes title={null}>
+        Body only
+      </ImportantNotes>,
+    );
+    expect(screen.queryByText("Important Notes:")).not.toBeInTheDocument();
+    expect(screen.getByText("Body only")).toBeInTheDocument();
+  });
+
   it("forwards className", () => {
     assertClassNameForwarding(ImportantNotes);
   });
@@ -35,27 +42,11 @@ describe("ImportantNotes", () => {
     assertPropSpreading(ImportantNotes);
   });
 
-  // C: Accessibility
-  it("has role=alert (wraps Alert component)", () => {
+  it("has role=note", () => {
     render(<ImportantNotes>Notice</ImportantNotes>);
-    expect(screen.getByRole("alert")).toBeInTheDocument();
+    expect(screen.getByRole("note")).toBeInTheDocument();
   });
 
-  // D: Tone variants
-  it("renders with each tone without crashing", () => {
-    const tones = ["positive", "critical", "warning", "info", "neutral"];
-    tones.forEach((tone) => {
-      const { unmount } = render(
-        <ImportantNotes tone={tone} title={`Note ${tone}`}>
-          Content
-        </ImportantNotes>,
-      );
-      expect(screen.getByText(`Note ${tone}`)).toBeInTheDocument();
-      unmount();
-    });
-  });
-
-  // E: Composability — rich children
   it("accepts complex children", () => {
     render(
       <ImportantNotes title="Fees">

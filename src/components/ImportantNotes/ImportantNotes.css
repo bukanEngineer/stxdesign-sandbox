@@ -1,0 +1,46 @@
+/* Important Notes — Paper: left accent line + title/description on a positive surface. */
+.important-notes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-1);
+  background: var(--status-surface-positive);
+  border-radius: var(--radius-md);
+}
+
+.important-notes__bar {
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 5px;
+  border-radius: 5px;
+  background: var(--status-positive);
+}
+
+.important-notes__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: var(--space-1);
+  padding-block: var(--space-1);
+}
+
+.important-notes__title {
+  margin: 0;
+  font: var(--label-medium);
+  color: var(--text-primary);
+}
+
+.important-notes__body {
+  margin: 0;
+  align-self: stretch;
+  font: var(--body-medium);
+  color: var(--text-primary);
+}
+
+.important-notes__body a {
+  color: var(--link);
+}

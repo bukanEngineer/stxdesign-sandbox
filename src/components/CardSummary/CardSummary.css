@@ -84,28 +84,4 @@
 .card-summary__net-label { font: var(--body-medium); color: var(--text-secondary); }
 .card-summary__net-value { font: var(--label-large); color: var(--text-primary); }
 
-/* ── Important notes ── */
-.card-summary__note {
-  display: flex;
-  gap: var(--space-3);
-  width: 100%;
-  padding: var(--space-1);
-  background: var(--status-surface-positive);
-  border-radius: var(--radius-md);
-}
-.card-summary__note-bar {
-  flex-shrink: 0;
-  width: 5px;
-  border-radius: var(--radius-sm);
-  background: var(--status-positive);
-}
-.card-summary__note-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-1) 0;
-}
-.card-summary__note-title { font: var(--label-medium); color: var(--text-primary); margin: 0; }
-.card-summary__note-body { font: var(--body-medium); color: var(--text-primary); margin: 0; }
-
 .card-summary__btn { width: 100%; }
