@@ -29,11 +29,11 @@
 
 /* variants */
 .btn--primary {
-  background: var(--primary);
+  background: #7C3AED;
   color: var(--text-primary);
 }
-.btn--primary:hover { background: var(--btn-primary-hovered); }
-.btn--primary:active { background: var(--btn-primary-pressed); }
+.btn--primary:hover { background: #6D28D9; }
+.btn--primary:active { background: #5B21B6; }
 
 .btn--secondary {
   background: transparent;
