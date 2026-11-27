@@ -61,7 +61,7 @@ The shared pieces makegic's screens and templates rebuilt by hand now exist in t
 | StatusTag | **Done**: `StatusTag`, plus `statusTone` and `statusLabel` maps. |
 | KeyValueRows | **Done**: `KeyValueRows` (`inline`, `stacked`, `grid`; `copyable`, `info`, `emphasis`, `helper`). |
 | ConfirmModal | **Done**: `ConfirmModal`, including async confirm and `confirmDisabled` for acknowledgements. |
-| FilterBar | **Done** for search, single-choice filters, date range, clear, count and actions. Not built: `multiple` filters (use `MultiSelect` beside it), date-range presets and collapsing into a `BottomSheet` on phones (controls wrap instead). |
+| FilterBar | **Done**: search, single- and multi-choice filters, date range with presets, clear, count, actions, and `collapse="sheet"` for phones. |
 | Spinner and Skeleton (DSG-09) | **Done**. |
 | Full-width buttons | **Done**: `Button fullWidth`. |
 | StatCard | Not built: only planned pages need it so far. |
