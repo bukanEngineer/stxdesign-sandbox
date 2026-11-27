@@ -1,4 +1,5 @@
 import React from "react";
+import { expect, within, userEvent, waitFor } from "storybook/test";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
@@ -191,5 +192,71 @@ export const Controlled: Story = {
         </Modal.Root>
       </>
     );
+  },
+};
+
+/** Put the safe action first in DOM order; no CSS reversal is applied. */
+export const StackedFooter: Story = {
+  render: () => (
+    <div style={{ width: 272 }}>
+      <Modal.Footer layout="stacked">
+        <Button variant="primary">Keep payment</Button>
+        <Button variant="secondary">Leave payment</Button>
+      </Modal.Footer>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const safe = canvas.getByRole("button", { name: "Keep payment" });
+    const leave = canvas.getByRole("button", { name: "Leave payment" });
+    const first = safe.getBoundingClientRect();
+    const second = leave.getBoundingClientRect();
+    await expect(first.width).toBe(232);
+    await expect(second.width).toBe(first.width);
+    await expect(first.height).toBe(48);
+    await expect(second.height).toBe(48);
+    await expect(second.top).toBeGreaterThan(first.bottom);
+    safe.focus();
+    await userEvent.tab();
+    await expect(leave).toHaveFocus();
+  },
+};
+
+export const ResponsiveFooter: Story = {
+  render: () => (
+    <Modal.Root defaultOpen>
+      <Modal.Popup>
+        <Modal.Header>
+          <Modal.Title>Leave payment?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your payment is still awaiting confirmation.</Modal.Body>
+        <Modal.Footer layout="responsive">
+          <Modal.Close render={<Button />}>Keep payment</Modal.Close>
+          <Modal.Close render={<Button variant="secondary" />}>Leave payment</Modal.Close>
+        </Modal.Footer>
+      </Modal.Popup>
+    </Modal.Root>
+  ),
+  play: async () => {
+    const body = within(document.body);
+    const safe = await body.findByRole("button", { name: "Keep payment" });
+    const leave = body.getByRole("button", { name: "Leave payment" });
+    const first = safe.getBoundingClientRect();
+    const second = leave.getBoundingClientRect();
+    await expect(first.height).toBe(48);
+    await expect(second.height).toBe(48);
+    if (matchMedia("(max-width: 480px)").matches) {
+      await expect(second.top).toBeGreaterThan(first.bottom);
+      await expect(second.width).toBe(first.width);
+    } else {
+      await expect(second.top).toBe(first.top);
+      await expect(second.left).toBeGreaterThan(first.right);
+    }
+    await expect(second.right).toBeLessThanOrEqual(window.innerWidth);
+    safe.focus();
+    await userEvent.tab();
+    await expect(leave).toHaveFocus();
+    await userEvent.click(safe);
+    await waitFor(() => expect(body.queryByRole("dialog")).not.toBeInTheDocument());
   },
 };

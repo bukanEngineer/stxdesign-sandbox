@@ -5,13 +5,13 @@ import userEvent from "@testing-library/user-event";
 import { SelectionBox } from "./SelectionBox";
 import { Radio } from "../Radio/Radio";
 
-describe("SelectionBox", () => {
+describe.each(["default", "compact"] as const)("SelectionBox (%s density)", (density) => {
   it("selects a radio option inside Radio.Group", async () => {
     const onValueChange = vi.fn();
     render(
       <Radio.Group onValueChange={onValueChange}>
-        <SelectionBox type="radio" value="a" label="Option A" />
-        <SelectionBox type="radio" value="b" label="Option B" />
+        <SelectionBox density={density} type="radio" value="a" label="Option A" />
+        <SelectionBox density={density} type="radio" value="b" label="Option B" />
       </Radio.Group>,
     );
     await userEvent.click(screen.getByText("Option B"));
@@ -21,14 +21,14 @@ describe("SelectionBox", () => {
   it("toggles a check selection box", async () => {
     const onChange = vi.fn();
     render(
-      <SelectionBox type="check" label="Agree" selected={false} onChange={onChange} />,
+      <SelectionBox density={density} type="check" label="Agree" selected={false} onChange={onChange} />,
     );
     await userEvent.click(screen.getByText("Agree"));
     expect(onChange).toHaveBeenCalledWith(true, expect.anything());
   });
 
   it("supports controlled check state", () => {
-    render(<SelectionBox type="check" label="On" selected />);
+    render(<SelectionBox density={density} type="check" label="On" selected />);
     expect(screen.getByRole("checkbox")).toBeChecked();
   });
 
@@ -36,7 +36,7 @@ describe("SelectionBox", () => {
     const onValueChange = vi.fn();
     render(
       <Radio.Group onValueChange={onValueChange}>
-        <SelectionBox type="radio" value="a" label="Locked" disabled />
+        <SelectionBox density={density} type="radio" value="a" label="Locked" disabled />
       </Radio.Group>,
     );
     await userEvent.click(screen.getByText("Locked"));

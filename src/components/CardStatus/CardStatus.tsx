@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusIcon } from "../StatusIcon/StatusIcon";
+import { StatusIcon, type StatusIconVariant } from "../StatusIcon/StatusIcon";
 import { LinkButton } from "../LinkButton/LinkButton";
 import { Card, CardDetailRow } from "../Card/Card";
 import { cn } from "../../lib/cn";
@@ -18,7 +18,7 @@ export type CardStatusSection = {
 };
 
 export type CardStatusProps = React.ComponentProps<"div"> & {
-  status?: "success" | "pending" | "error" | "info" | string;
+  status?: StatusIconVariant;
   statusIcon?: IconName;
   title?: React.ReactNode;
   description?: React.ReactNode;

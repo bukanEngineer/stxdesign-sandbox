@@ -13,6 +13,7 @@ export const iconButtonClasses = {
   size: {
     lg: "icon-btn--lg",
     sm: "icon-btn--sm",
+    xs: "icon-btn--xs",
   },
   touchTarget: "icon-btn--touch",
 } as const;

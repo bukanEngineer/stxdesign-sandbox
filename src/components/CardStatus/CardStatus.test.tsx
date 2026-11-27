@@ -1,9 +1,22 @@
 import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { CardStatus } from "./CardStatus";
 import { renderSmoke } from "../../test-utils";
 
 describe("CardStatus", () => {
+  it.each([
+    { status: "error", label: "Error", icon: "close" },
+    { status: "warning", label: "Warning", icon: "schedule" },
+    { status: "needApproval", label: "Needs approval", icon: "hourglass_top" },
+  ] as const)("renders $status without a success glyph or label", ({ status, label, icon }) => {
+    render(<CardStatus status={status} title="Payment outcome" />);
+    expect(screen.getByRole("img", { name: label }).querySelector("svg")).toHaveAttribute(
+      "data-icon",
+      icon,
+    );
+    expect(screen.queryByRole("img", { name: "Success" })).not.toBeInTheDocument();
+  });
+
   it("renders without crashing (no props)", () => {
     renderSmoke(CardStatus);
   });

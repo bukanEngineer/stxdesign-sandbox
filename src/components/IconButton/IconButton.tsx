@@ -17,13 +17,14 @@ export type IconButtonProps = Omit<BaseButton.Props, "children"> & {
   variant?: IconButtonVariant;
   /** Button shape */
   shape?: IconButtonShape;
-  /** Button size */
+  /** Visual size: `xs` 24px / 16px glyph, `sm` 36px / 20px, `lg` 48px / 24px. */
   size?: IconButtonSize;
   /** Accessible label (required for icon-only buttons) */
   label: string;
   /**
    * Extend the tap area to 48x48 without changing the visual size or layout.
-   * Use for small buttons on touch screens; `lg` is already 48px, so it has no effect there.
+   * Use with `xs` / `sm`; `lg` is already 48px. Leave enough row and column
+   * spacing for targets to stay separate; the expanded area takes no layout space.
    */
   touchTarget?: boolean;
   /** Makes the button a toggle: sets `aria-pressed` and the active style. Omit for a plain button. */

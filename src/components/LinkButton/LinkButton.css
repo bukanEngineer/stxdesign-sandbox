@@ -12,7 +12,10 @@
   text-decoration: none;
   transition: color var(--dur-1) var(--ease);
 }
-.link-btn:hover { color: var(--interactive-active); }
+@media (hover: hover) and (pointer: fine) {
+  .link-btn:hover:not([data-disabled]):not([disabled]) { color: var(--interactive-active); }
+}
+.link-btn:active:not([data-disabled]):not([disabled]) { color: var(--interactive-active); }
 .link-btn:focus-visible {
   outline: 2px solid var(--status-information);
   outline-offset: 2px;
@@ -24,7 +27,11 @@
 .link-btn--sm { font-size: 12px; line-height: 1.4; }
 
 .link-btn[data-on-dark] { color: var(--primary); }
-.link-btn[data-on-dark]:hover { color: var(--brand-seamless-mint); }
+@media (hover: hover) and (pointer: fine) {
+  .link-btn[data-on-dark]:hover:not([data-disabled]):not([disabled]) { color: var(--brand-seamless-mint); }
+}
+
+.link-btn[data-on-dark]:active:not([data-disabled]):not([disabled]) { color: var(--brand-seamless-mint); }
 
 .link-btn .sx-icon { font-size: 1.15em; }
 .link-btn[data-disabled],

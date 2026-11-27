@@ -17,7 +17,9 @@
               background var(--dur-1) var(--ease),
               box-shadow var(--dur-1) var(--ease);
 }
-.selbox:hover { background: var(--surface-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .selbox:hover { background: var(--surface-hovered); }
+}
 
 /* visually-hidden native input drives state + a11y */
 .selbox__input {
@@ -87,13 +89,21 @@
 .selbox__label { font: var(--body-large); color: var(--text-primary); }
 .selbox__desc { font: var(--body-medium); color: var(--text-secondary); }
 
+.selbox[data-density="compact"] { padding: var(--space-2) var(--space-3); }
+.selbox[data-density="compact"] .selbox__content { gap: 0; }
+.selbox[data-density="compact"] .selbox__label { font: var(--body-bold-medium); }
+
 /* ════════ Selected (driven by Base UI data-checked) ════════ */
 .selbox:has([data-checked]) {
   border: 2px solid var(--interactive-active);
   background: var(--surface);
 }
-.selbox:has([data-checked]):hover { background: var(--surface-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .selbox:has([data-checked]):hover { background: var(--surface-hovered); }
+}
 .selbox:has([data-checked]) .selbox__indicator--custom { color: var(--interactive-active); }
+
+.selbox:not(:has([data-disabled])):active { background: var(--surface-pressed); }
 
 /* ════════ Disabled ════════ */
 .selbox:has([data-disabled]) {
@@ -102,7 +112,9 @@
   border: 1px solid var(--border);
   color: var(--disabled-on-surface);
 }
-.selbox:has([data-disabled]):hover { background: var(--surface-disabled); }
+@media (hover: hover) and (pointer: fine) {
+  .selbox:has([data-disabled]):hover { background: var(--surface-disabled); }
+}
 .selbox:has([data-disabled]) .selbox__label,
 .selbox:has([data-disabled]) .selbox__desc { color: var(--disabled-on-surface); }
 .selbox:has([data-disabled]) .selbox__indicator--custom { color: var(--disabled-on-surface); }

@@ -55,7 +55,7 @@ export const Blockchains = {
         {PartnerLogo.chains.map((slug) => <PartnerLogo key={slug} name={slug} logo={logoFor(slug)} size={32} />)}
       </div>
       <div style={markRow}>
-        {["ETH", "POLYGON", "ARBITRUM", "BASE", "SOLANA", "TRON", "BNB", "XRP", "HBAR", "AVAX", "METAMASK", "WALLETCONNECT"].map(
+        {["ETH", "POLYGON", "ARBITRUM", "BASE", "SOLANA", "TRON", "BSC", "BNB", "XRP", "HBAR", "AVAX", "METAMASK", "WALLETCONNECT"].map(
           (a) => <AssetMark key={a} asset={a} />,
         )}
       </div>

@@ -32,6 +32,7 @@ const ASSETS: Record<string, AssetDef> = {
   BASE: { glyph: "B", color: "#0052FF", logo: "base" },
   SOLANA: { glyph: "◎", color: "#14F195", logo: "solana" },
   TRON: { glyph: "T", color: "#EB0029", logo: "tron" },
+  BSC: { glyph: "B", color: "#F0B90B", logo: "bsc" },
   BNB: { glyph: "B", color: "#F3BA2F", logo: "binance" },
   BINANCE: { glyph: "B", color: "#F3BA2F", logo: "binance" },
   XRP: { glyph: "✕", color: "#23292F", logo: "ripple" },
