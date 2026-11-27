@@ -27,6 +27,8 @@
 .btn--md { height: 40px; padding: 0 var(--space-4); font-size: 14px; }
 .btn--sm { height: 36px; padding: 0 var(--space-4); font-size: 14px; }
 
+.btn--full-width { display: flex; width: 100%; }
+
 /* variants */
 .btn--primary {
   background: var(--primary);

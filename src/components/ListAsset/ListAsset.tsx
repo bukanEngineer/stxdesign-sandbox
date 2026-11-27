@@ -26,6 +26,13 @@ export type ListAssetProps = Omit<React.ComponentProps<"div">, "title"> & {
   onAdd?: () => void;
   onSend?: () => void;
   showAction?: boolean;
+  /**
+   * Mobile only: makes the whole row a button (the chevron, with its hit area
+   * stretched over the row). Its accessible name is `selectLabel`.
+   */
+  onSelect?: () => void;
+  /** Accessible name of the row button. Default "View {symbol}". */
+  selectLabel?: string;
 };
 
 /** Asset row: mark, symbol, balance, supported networks and actions. Built on `ListItem`. */
@@ -44,6 +51,8 @@ export function ListAsset({
   onAdd,
   onSend,
   showAction = true,
+  onSelect,
+  selectLabel,
   className,
   ...rest
 }: ListAssetProps) {
@@ -59,8 +68,20 @@ export function ListAsset({
   );
 
   let trailing: React.ReactNode = null;
-  if (isMobile) {
-    trailing = <Icon name="arrow_forward_ios" className="list-asset__chevron" />;
+  const chevron = <Icon name="arrow_forward_ios" className="list-asset__chevron" />;
+  if (isMobile && onSelect) {
+    trailing = (
+      <button
+        type="button"
+        className="list-asset__select"
+        aria-label={selectLabel ?? (typeof symbol === "string" ? `View ${symbol}` : "View asset")}
+        onClick={onSelect}
+      >
+        {chevron}
+      </button>
+    );
+  } else if (isMobile) {
+    trailing = chevron;
   } else if (showAction) {
     trailing = (
       <div className="list-asset__actions">
@@ -84,6 +105,7 @@ export function ListAsset({
     <ListItem
       data-platform={platform}
       data-variant={variant}
+      data-selectable={isMobile && onSelect ? "" : undefined}
       className={cn("list-asset", `list-asset--${platform}`, `list-asset--${variant}`, className)}
       leading={mark != null ? <span className="list-asset__icon">{mark}</span> : undefined}
       title={symbol}

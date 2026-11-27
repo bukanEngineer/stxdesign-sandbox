@@ -1,4 +1,5 @@
 import React from "react";
+import { expect } from "storybook/test";
 import { CardAsset } from "./CardAsset";
 
 export default {
@@ -67,3 +68,21 @@ export const SingleAsset = {
   args: { title: "Cash Wallet", assets: [assets[0]] },
   decorators: [(S) => <div style={{ maxWidth: 684 }}><S /></div>],
 };
+
+/** Phone width: rows show a chevron instead of Add / Send so the name and balance fit. */
+export const Mobile = {
+  args: { title: "My Assets", assets, platform: "mobile", onSelect: () => {} },
+  decorators: [(S) => <div style={{ width: 390 }}><S /></div>],
+  play: async ({ canvasElement }) => {
+    for (const title of canvasElement.querySelectorAll(".list-asset .list-item__title")) {
+      await expect(title.getBoundingClientRect().width).toBeGreaterThan(40);
+    }
+    await expect(canvasElement.querySelector(".list-asset__actions")).toBeNull();
+  },
+};
+
+/** `platform="auto"` switches to the mobile rows at viewport widths up to 599px. */
+export const Auto = {
+  args: { title: "My Assets", assets, platform: "auto", onAdd: () => {}, onSend: () => {}, onSelect: () => {} },
+};
+

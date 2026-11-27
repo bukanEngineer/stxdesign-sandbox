@@ -11,7 +11,8 @@ Status of each gap reported against stxdesign-sandbox 0.2.2, re-checked against 
 | "+3" network overflow | Already shipped: `CardAsset` passes `networkOverflow` to `ListAsset` above four networks. |
 | Caption under action buttons | **Done**: `ActionButton` and `Caption`. |
 | "Latest Transactions" rows with a toned amount | **Done**: `ActivityRow`. |
-| Header refresh and "View All" | **Done**: `CardHeader` `actions` and `CardAsset` `actions`. |
+| Header refresh and "View All" | **Done** (fixed again, unreleased): `CardHeader` `actions` and `CardAsset` `actions`. 0.7.0 shipped the slot but the actions stacked under the title because of CSS rule order; the row layout now wins. |
+| "My Assets" rows on a phone | **Done** (unreleased): `CardAsset platform="mobile"` (or `"auto"`) shows a chevron instead of Add / Send; `onSelect` makes each row a button. |
 | Footnote text | **Done**: `Footnote`. |
 | Responsive reordering below 1280px | Still an app layout concern. |
 | Typings mark `any` props required | Already fixed: props are optional in the 0.6.2 typings. |
@@ -50,6 +51,20 @@ Status of each gap reported against stxdesign-sandbox 0.2.2, re-checked against 
 | Upload | Single file; size and type | Already has `multiple`, `accept`, `maxSize`. |
 
 Naming: the guides say Success, Information and Toggle. The package uses `positive`, `info` and `Switch`. Update the guides, not the package.
+
+## Dashboard component requests (unreleased)
+
+The shared pieces makegic's screens and templates rebuilt by hand now exist in the package:
+
+| Request | Status |
+| --- | --- |
+| StatusTag | **Done**: `StatusTag`, plus `statusTone` and `statusLabel` maps. |
+| KeyValueRows | **Done**: `KeyValueRows` (`inline`, `stacked`, `grid`; `copyable`, `info`, `emphasis`, `helper`). |
+| ConfirmModal | **Done**: `ConfirmModal`, including async confirm and `confirmDisabled` for acknowledgements. |
+| FilterBar | **Done** for search, single-choice filters, date range, clear, count and actions. Not built: `multiple` filters (use `MultiSelect` beside it), date-range presets and collapsing into a `BottomSheet` on phones (controls wrap instead). |
+| Spinner and Skeleton (DSG-09) | **Done**. |
+| Full-width buttons | **Done**: `Button fullWidth`. |
+| StatCard | Not built: only planned pages need it so far. |
 
 ## Still open
 

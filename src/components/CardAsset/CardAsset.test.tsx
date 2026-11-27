@@ -74,4 +74,33 @@ describe("CardAsset", () => {
     expect(screen.getByText("Cash toggle")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "View all" })).toBeInTheDocument();
   });
+
+  it("shows Add / Send on desktop rows by default", () => {
+    render(<CardAsset assets={[{ symbol: "XSGD" }]} onAdd={() => {}} onSend={() => {}} />);
+    expect(screen.getByRole("button", { name: "Add" })).toBeInTheDocument();
+    expect(document.querySelector(".list-asset--desktop")).not.toBeNull();
+  });
+
+  it("uses mobile rows with platform=\"mobile\" and selects a row by click and keyboard", async () => {
+    const onSelect = vi.fn();
+    render(<CardAsset platform="mobile" assets={[{ symbol: "XSGD" }]} onAdd={() => {}} onSelect={onSelect} />);
+    expect(screen.queryByRole("button", { name: "Add" })).not.toBeInTheDocument();
+    const row = screen.getByRole("button", { name: "View XSGD" });
+    expect(row.closest(".list-asset")).toHaveClass("list-asset--mobile");
+    await userEvent.click(row);
+    row.focus();
+    await userEvent.keyboard("{Enter}");
+    expect(onSelect).toHaveBeenCalledTimes(2);
+    expect(onSelect).toHaveBeenCalledWith({ symbol: "XSGD" });
+  });
+
+  it("leaves mobile rows non-interactive without onSelect", () => {
+    render(<CardAsset platform="mobile" assets={[{ symbol: "XSGD" }]} />);
+    expect(screen.queryByRole("button", { name: "View XSGD" })).not.toBeInTheDocument();
+  });
+
+  it("falls back to desktop rows for platform=\"auto\" without matchMedia", () => {
+    render(<CardAsset platform="auto" assets={[{ symbol: "XSGD" }]} />);
+    expect(document.querySelector(".list-asset--desktop")).not.toBeNull();
+  });
 });

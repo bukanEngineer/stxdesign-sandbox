@@ -16,6 +16,7 @@ export const buttonClasses = {
     md: "btn--md",
     sm: "btn--sm",
   },
+  fullWidth: "btn--full-width",
 } as const;
 
 export type ButtonVariant = keyof typeof buttonClasses.variant;

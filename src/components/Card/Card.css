@@ -13,6 +13,12 @@
 .card[data-padding="lg"] { padding: var(--space-6); }
 .card[data-padding="none"] { padding: 0; }
 
+.card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+/* Declared after .card__header so the row layout wins at equal specificity. */
 .card__header--with-actions {
   flex-direction: row;
   align-items: center;
@@ -21,12 +27,6 @@
 }
 .card__heading { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .card__actions { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
-
-.card__header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
 .card__title {
   font: 700 20px/1.25 var(--font-display);
   margin: 0;

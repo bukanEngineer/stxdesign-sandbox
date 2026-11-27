@@ -9,11 +9,10 @@ import { useState, useEffect } from "react";
  * const isMobile = useMediaQuery(MEDIA.MOBILE);
  */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia(query).matches : false,
-  );
+  const [matches, setMatches] = useState(() => (canMatch() ? window.matchMedia(query).matches : false));
 
   useEffect(() => {
+    if (!canMatch()) return;
     const mql = window.matchMedia(query);
     const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
     mql.addEventListener("change", handler);
@@ -24,4 +23,9 @@ export function useMediaQuery(query: string): boolean {
   }, [query]);
 
   return matches;
+}
+
+/** False during SSR and in test environments without `matchMedia` (jsdom). */
+function canMatch() {
+  return typeof window !== "undefined" && typeof window.matchMedia === "function";
 }

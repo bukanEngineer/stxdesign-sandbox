@@ -1,0 +1,39 @@
+/* FilterBar — controls above a table */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
+}
+.filter-bar__controls {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.filter-bar__search { flex: 1 1 240px; max-width: 320px; min-width: 0; }
+.filter-bar__filter { flex: 0 1 180px; min-width: 140px; }
+.filter-bar__date { flex: 0 1 260px; min-width: 200px; }
+.filter-bar__clear { flex-shrink: 0; }
+
+.filter-bar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+.filter-bar__count {
+  font: var(--body-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Phones: every control takes the full row */
+@media (max-width: 599px) {
+  .filter-bar__search,
+  .filter-bar__filter,
+  .filter-bar__date { flex: 1 1 100%; max-width: none; }
+}

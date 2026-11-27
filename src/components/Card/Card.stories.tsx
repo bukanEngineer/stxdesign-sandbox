@@ -132,3 +132,31 @@ export const PaddingOptions: Story = {
     }
   },
 };
+
+/** Header actions sit on the title row, not stacked under it. */
+export const HeaderActions: Story = {
+  render: (args) => (
+    <Card {...args}>
+      <CardHeader
+        actions={
+          <Button variant="tertiary" size="sm">
+            View all
+          </Button>
+        }
+      >
+        <CardTitle>Latest Transactions</CardTitle>
+        <CardDescription>Last 30 days</CardDescription>
+      </CardHeader>
+    </Card>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const header = canvasElement.querySelector(".card__header")!;
+    await expect(getComputedStyle(header).flexDirection).toBe("row");
+    const title = canvas.getByText("Latest Transactions").getBoundingClientRect();
+    const action = canvas.getByRole("button", { name: "View all" }).getBoundingClientRect();
+    await expect(action.left).toBeGreaterThan(title.right);
+    await expect(action.top).toBeLessThan(title.bottom);
+  },
+};
+
