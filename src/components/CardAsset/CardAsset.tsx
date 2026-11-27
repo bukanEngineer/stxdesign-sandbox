@@ -4,6 +4,7 @@ import { Card, CardHeader } from "../Card/Card";
 import { List } from "../List/List";
 import { ListAsset } from "../ListAsset/ListAsset";
 import { cn } from "../../lib/cn";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 import "./CardAsset.css";
 
 export type CardAssetNetwork = {
@@ -31,7 +32,20 @@ export type CardAssetProps = Omit<React.ComponentProps<"section">, "title"> & {
   onRefresh?: () => void;
   onAdd?: (asset: CardAssetItem) => void;
   onSend?: (asset: CardAssetItem) => void;
+  /**
+   * Row layout. `desktop` shows Add / Send buttons on every row. `mobile` shows a
+   * chevron instead, so the name, balance and networks fit a phone. `auto`
+   * switches to `mobile` at viewport widths up to 599px.
+   */
+  platform?: CardAssetPlatform;
+  /** Called when a row is tapped in the mobile layout (where Add / Send are hidden) */
+  onSelect?: (asset: CardAssetItem) => void;
 };
+
+export type CardAssetPlatform = "desktop" | "mobile" | "auto";
+
+/** Viewport width at or below which `platform="auto"` uses the mobile rows. */
+export const CARD_ASSET_MOBILE_QUERY = "(max-width: 599px)";
 
 /** Portfolio asset list card. */
 export function CardAsset({
@@ -43,9 +57,15 @@ export function CardAsset({
   onRefresh,
   onAdd,
   onSend,
+  platform = "desktop",
+  onSelect,
   className,
   ...rest
 }: CardAssetProps) {
+  // "not all" never matches, so fixed platforms do not depend on the viewport.
+  const narrow = useMediaQuery(platform === "auto" ? CARD_ASSET_MOBILE_QUERY : "not all");
+  const rowPlatform = platform === "auto" ? (narrow ? "mobile" : "desktop") : platform;
+  const isMobile = rowPlatform === "mobile";
   return (
     <Card className={cn("card-asset", className)} {...rest}>
       <CardHeader className="card-asset__header" actions={actions}>
@@ -87,8 +107,10 @@ export function CardAsset({
                 <Network key={n.name || j} logo={n.logo} name={n.name} />
               ))}
               networkOverflow={Math.max(0, networks.length - MAX_NETWORKS)}
+              platform={rowPlatform}
               onAdd={onAdd ? () => onAdd(a) : undefined}
               onSend={onSend ? () => onSend(a) : undefined}
+              onSelect={isMobile && onSelect ? () => onSelect(a) : undefined}
             />
           );
         })}

@@ -57,3 +57,26 @@
 /* ── Mobile ── */
 .list-asset--mobile .list-asset__balance { align-items: flex-end; }
 .list-asset--mobile .list-asset__balance-value { font: var(--title-small); }
+
+/* Mobile row button: the chevron's hit area covers the whole row */
+.list-asset[data-selectable] { position: relative; }
+.list-asset__select {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.list-asset__select::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+}
+.list-asset__select:focus-visible { outline: none; }
+.list-asset__select:focus-visible::after {
+  outline: 2px solid var(--status-information);
+  outline-offset: 2px;
+}

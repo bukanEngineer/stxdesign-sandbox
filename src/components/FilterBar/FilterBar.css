@@ -1,0 +1,92 @@
+/* FilterBar — controls above a table */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
+}
+.filter-bar__controls {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.filter-bar__search { flex: 1 1 240px; max-width: 320px; min-width: 0; }
+.filter-bar__filter { flex: 0 1 180px; min-width: 140px; }
+.filter-bar__filter[data-multiple] { flex-basis: 200px; }
+.filter-bar__dates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+.filter-bar__date { flex: 0 1 300px; min-width: 200px; }
+.filter-bar__presets { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.filter-bar__clear { flex-shrink: 0; }
+
+.filter-bar__end {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+.filter-bar__count {
+  font: var(--body-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Multi-select sized like a small Select: one row, summary instead of chips */
+.multiselect.filter-bar__multi {
+  min-height: 36px;
+  height: 36px;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border-radius: var(--radius-md);
+  font: var(--body-medium);
+  flex-wrap: nowrap;
+}
+.filter-bar__multi .multiselect__input { min-width: 0; flex: 1 1 auto; text-overflow: ellipsis; }
+.filter-bar__multi[data-has-value] .multiselect__input::placeholder { color: var(--text-primary); opacity: 1; }
+
+/* Phones: every control takes the full row */
+@media (max-width: 599px) {
+  .filter-bar__search,
+  .filter-bar__filter,
+  .filter-bar__dates,
+  .filter-bar__date { flex: 1 1 100%; max-width: none; }
+}
+
+/* ── Collapsed: search + Filters button, the rest in a bottom sheet ── */
+.filter-bar[data-collapsed] .filter-bar__controls { flex-wrap: nowrap; }
+.filter-bar[data-collapsed] .filter-bar__search { flex: 1 1 auto; max-width: none; }
+.filter-bar__open { flex-shrink: 0; }
+
+.filter-bar__sheet-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.filter-bar__sheet-body .filter-bar__filter,
+.filter-bar__sheet-body .filter-bar__dates,
+.filter-bar__sheet-body .filter-bar__date {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  flex: none;
+  width: 100%;
+  min-width: 0;
+}
+.filter-bar__sheet-body .filter-bar__presets { flex-wrap: wrap; }
+.filter-bar__sheet-label {
+  font: var(--label-medium);
+  color: var(--text-primary);
+}
+.filter-bar__sheet-foot {
+  display: flex;
+  gap: var(--space-3);
+}

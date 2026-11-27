@@ -59,4 +59,11 @@ describe("Button", () => {
     expect(btn.firstElementChild).toHaveAttribute("data-icon", "add");
     expect(btn.lastElementChild).toHaveAttribute("data-icon", "arrow_forward");
   });
+
+  it("adds the full-width class only with fullWidth", () => {
+    const { rerender } = render(<Button>Continue</Button>);
+    expect(screen.getByRole("button")).not.toHaveClass("btn--full-width");
+    rerender(<Button fullWidth>Continue</Button>);
+    expect(screen.getByRole("button")).toHaveClass("btn--full-width");
+  });
 });

@@ -11,8 +11,18 @@
 
 - `Modal.Footer` `layout="stacked"` and `layout="responsive"` (stacks at viewport widths up to 480px), with full-width actions in DOM order. The default row layout is unchanged.
 - `StatusIcon` `error` (critical fill, close glyph) and `warning` (warning fill, schedule glyph) variants, with matching accessible labels and Storybook examples. Override `aria-label` for outcomes such as “Expired”.
+- `StatusTag`: a `Tag` that takes a `status` (`completed`, `pending`, `processing`, `awaiting-approval`, `failed`, `cancelled`, `expired`, `active`, `invited`, `disabled`) and picks the tone and label. `statusTone` and `statusLabel` are exported for tables, filters and legends.
+- `KeyValueRows`: label / value list (`<dl>`) with `inline`, `stacked` and `grid` layouts, `dividers`, `compact` size, and per-row `info` tooltip, `copyable` button, `emphasis` and `helper`.
+- `ConfirmModal`: one-action confirmation built on `Modal`, with `tone="critical"`, an optional body and illustration, `confirmDisabled`, and a loading confirm button while an async `onConfirm` is pending (closes on resolve, stays open on reject).
+- `FilterBar`: search, single-choice and multi-choice (`multiple: true`) filters, a date range with presets (`7d`, `30d`, `90d`, `month`), "Clear filters", a live result count and actions above a table. Wraps as the container narrows; `collapse="sheet"` keeps search inline and moves the rest into a `BottomSheet` behind a "Filters" button on phones (`collapseQuery`, default up to 767px).
+- `Spinner` (`sm` / `md` / `lg`, inherits text colour) and `Skeleton` (`text`, `rect`, `circle`, multi-line text) loading primitives. Both respect `prefers-reduced-motion`.
+- `Button` `fullWidth`.
+- `CardAsset` `platform` (`desktop` | `mobile` | `auto`) and `onSelect`. Mobile rows show a chevron instead of Add / Send so the name and balance fit a phone; `auto` switches at viewport widths up to 599px. `ListAsset` gains `onSelect` / `selectLabel`, which make a mobile row a button.
 
 ### Fixed
+
+- `CardHeader actions` now sits on the title row. `.card__header` was declared after `.card__header--with-actions` at equal specificity, so the actions stacked under the title.
+- `useMediaQuery` no longer throws where `window.matchMedia` is missing (jsdom tests).
 
 - `AssetMark asset="bsc"` now resolves the supplied BSC network logo, matching the hosted app. Matching is case-insensitive; BNB and Binance mappings are unchanged.
 

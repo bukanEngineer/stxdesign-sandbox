@@ -24,6 +24,11 @@ export const Tertiary: Story = { args: { variant: "tertiary", children: "Learn m
 export const Destructive: Story = { args: { variant: "destructive", children: "Delete account" } };
 export const WithStartIcon: Story = { args: { startIcon: "add", children: "Add recipient" } };
 export const WithEndIcon: Story = { args: { endIcon: "arrow_forward", children: "Continue" } };
+/** Stretches to its container, e.g. stacked actions on a phone. */
+export const FullWidth: Story = {
+  args: { fullWidth: true, children: "Continue" },
+  decorators: [(Story) => <div style={{ width: 320 }}><Story /></div>],
+};
 export const Disabled: Story = { args: { variant: "primary", disabled: true, children: "Submit" } };
 
 export const AllVariants: Story = {

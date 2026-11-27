@@ -322,7 +322,8 @@ export type { PartnerLogoProps } from "./components/PartnerLogo";
 
 // --- Net-new product components (StraitsX Figma) ---
 export { CardAsset } from "./components/CardAsset";
-export type { CardAssetProps, CardAssetItem, CardAssetNetwork } from "./components/CardAsset";
+export type { CardAssetProps, CardAssetItem, CardAssetNetwork, CardAssetPlatform } from "./components/CardAsset";
+export { CARD_ASSET_MOBILE_QUERY } from "./components/CardAsset";
 export { CardSwap } from "./components/CardSwap";
 export type { CardSwapProps, CardSwapLeg } from "./components/CardSwap";
 export { CardStatus } from "./components/CardStatus";
@@ -427,3 +428,23 @@ export { ActivityRow } from "./components/ActivityRow";
 export type { ActivityRowProps, ActivityAmountTone } from "./components/ActivityRow";
 export { ActionButton } from "./components/ActionButton";
 export type { ActionButtonProps } from "./components/ActionButton";
+export { StatusTag, statusTone, statusLabel } from "./components/StatusTag";
+export type { StatusTagProps, Status } from "./components/StatusTag";
+export { Spinner } from "./components/Spinner";
+export type { SpinnerProps, SpinnerSize } from "./components/Spinner";
+export { Skeleton } from "./components/Skeleton";
+export type { SkeletonProps, SkeletonShape } from "./components/Skeleton";
+export { KeyValueRows } from "./components/KeyValueRows";
+export type { KeyValueRowsProps, KeyValueItem, KeyValueRowsLayout } from "./components/KeyValueRows";
+export { ConfirmModal } from "./components/ConfirmModal";
+export type { ConfirmModalProps } from "./components/ConfirmModal";
+export { FilterBar, presetRange, filterBarPresetLabel, FILTER_BAR_COLLAPSE_QUERY } from "./components/FilterBar";
+export type {
+  FilterBarProps,
+  FilterBarFilter,
+  FilterBarSingleFilter,
+  FilterBarMultipleFilter,
+  FilterBarOption,
+  FilterBarDateRange,
+  FilterBarDatePreset,
+} from "./components/FilterBar";

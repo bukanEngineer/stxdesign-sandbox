@@ -14,6 +14,8 @@ export type ButtonProps = BaseButton.Props & {
   startIcon?: IconSource;
   /** Icon after the label: an icon name, or your own element */
   endIcon?: IconSource;
+  /** Stretch to the full width of the container, e.g. a stacked mobile action */
+  fullWidth?: boolean;
 };
 
 /** Button built on Base UI's Button. */
@@ -23,6 +25,7 @@ export function Button({
   type = "button",
   startIcon,
   endIcon,
+  fullWidth = false,
   className,
   children,
   ...props
@@ -31,7 +34,12 @@ export function Button({
     <BaseButton
       type={type}
       className={withClass(
-        [buttonClasses.root, buttonClasses.variant[variant], buttonClasses.size[size]],
+        [
+          buttonClasses.root,
+          buttonClasses.variant[variant],
+          buttonClasses.size[size],
+          fullWidth && buttonClasses.fullWidth,
+        ],
         className,
       )}
       {...props}
