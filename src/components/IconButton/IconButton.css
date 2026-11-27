@@ -16,16 +16,23 @@
 /* sizes */
 .icon-btn--lg { width: 48px; height: 48px; }
 .icon-btn--sm { width: 36px; height: 36px; }
+.icon-btn--xs { width: 24px; height: 24px; padding: 0; box-sizing: border-box; }
 .icon-btn--lg .sx-icon { font-size: 24px; }
 .icon-btn--sm .sx-icon { font-size: 20px; }
+.icon-btn--xs .sx-icon { font-size: 16px; }
 
-/* touch target: the small button keeps its 36px look, the ::after grows the tap area to
- * 48x48 (6px each side) without taking up layout space. */
+/* Touch targets take no layout space. Keep at least 48px between button centers
+ * (and enough room from other controls) so adjacent hit areas do not overlap. */
 .icon-btn--touch { position: relative; }
+.icon-btn--xs.icon-btn--touch::after,
 .icon-btn--sm.icon-btn--touch::after {
   content: "";
   position: absolute;
-  inset: -6px;
+  width: 48px;
+  height: 48px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* shapes */
@@ -37,7 +44,9 @@
   background: var(--primary);
   color: var(--text-primary);
 }
-.icon-btn--primary:hover { background: var(--btn-primary-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .icon-btn--primary:hover { background: var(--btn-primary-hovered); }
+}
 .icon-btn--primary:active { background: var(--btn-primary-pressed); }
 
 .icon-btn--secondary {
@@ -45,21 +54,27 @@
   color: var(--text-secondary);
   border: 1.5px solid var(--border);
 }
-.icon-btn--secondary:hover { background: var(--btn-secondary-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .icon-btn--secondary:hover { background: var(--btn-secondary-hovered); }
+}
 .icon-btn--secondary:active { background: var(--btn-secondary-pressed); }
 
 .icon-btn--tertiary {
   background: transparent;
   color: var(--btn-secondary-text);
 }
-.icon-btn--tertiary:hover { background: var(--btn-tertiary-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .icon-btn--tertiary:hover { background: var(--btn-tertiary-hovered); }
+}
 .icon-btn--tertiary:active { background: var(--btn-tertiary-pressed); }
 
 .icon-btn--destructive {
   background: var(--status-critical);
   color: var(--text-inverse);
 }
-.icon-btn--destructive:hover { background: var(--btn-destructive-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .icon-btn--destructive:hover { background: var(--btn-destructive-hovered); }
+}
 .icon-btn--destructive:active { background: var(--btn-destructive-pressed); }
 
 /* toggle on state (aria-pressed): filled with the pressed tone of its variant */

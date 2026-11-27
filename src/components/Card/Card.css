@@ -9,6 +9,7 @@
 .card[data-shadow="3"] { box-shadow: var(--shadow-3); }
 
 .card[data-radius="lg"] { border-radius: var(--radius-lg); }
+.card[data-padding="sm"] { padding: var(--space-4); }
 .card[data-padding="lg"] { padding: var(--space-6); }
 .card[data-padding="none"] { padding: 0; }
 

@@ -20,3 +20,10 @@
 .status-icon--needApproval {
   background: var(--status-warning-strong);
 }
+
+.status-icon--error {
+  background: var(--status-critical);
+}
+.status-icon--warning {
+  background: var(--status-warning-strong);
+}

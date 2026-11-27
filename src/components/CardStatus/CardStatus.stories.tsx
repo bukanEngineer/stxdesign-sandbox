@@ -1,4 +1,3 @@
-import React from "react";
 import { CardStatus } from "./CardStatus";
 
 export default {
@@ -58,5 +57,21 @@ export const Success = {
     ],
     total: { label: "Net Amount", value: "100,000 XSGD" },
     footerLink: { text: "View Transaction Details", onClick: () => {} },
+  },
+};
+
+export const Error = {
+  args: {
+    status: "error",
+    title: "Payment failed",
+    description: "The payment could not be completed.",
+  },
+};
+
+export const Warning = {
+  args: {
+    status: "warning",
+    title: "Payment expired",
+    description: "The payment window has ended. Start a new payment to continue.",
   },
 };

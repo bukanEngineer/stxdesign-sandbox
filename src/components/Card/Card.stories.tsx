@@ -1,4 +1,5 @@
 import React from "react";
+import { expect, within } from "storybook/test";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./Card";
 import { Button } from "../Button/Button";
@@ -9,6 +10,7 @@ const meta: Meta<typeof Card> = {
   component: Card,
   parameters: { layout: "padded" },
   argTypes: {
+    padding: { control: "inline-radio", options: ["none", "sm", "md", "lg"] },
     shadow: { control: "inline-radio", options: [false, 1, 2, 3] },
   },
   args: { shadow: false },
@@ -104,4 +106,29 @@ export const WithContent: Story = {
       </CardFooter>
     </Card>
   ),
+};
+
+export const Compact: Story = { ...Default, args: { padding: "sm", radius: "lg" } };
+
+export const PaddingOptions: Story = {
+  render: () => (
+    <div style={{ display: "grid", gap: 16 }}>
+      <Card data-testid="default-padding"><span>Default: 20px</span></Card>
+      {(["none", "sm", "md", "lg"] as const).map((padding) => (
+        <Card key={padding} padding={padding} data-testid={`padding-${padding}`}>
+          <span>{padding}</span>
+        </Card>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(getComputedStyle(canvas.getByTestId("default-padding")).padding).toBe("20px");
+    for (const [padding, expected] of [["none", 0], ["sm", 16], ["md", 20], ["lg", 24]] as const) {
+      const card = canvas.getByTestId(`padding-${padding}`);
+      await expect(getComputedStyle(card).padding).toBe(`${expected}px`);
+      const content = card.firstElementChild;
+      if (content) await expect(content.getBoundingClientRect().left - card.getBoundingClientRect().left).toBe(expected);
+    }
+  },
 };

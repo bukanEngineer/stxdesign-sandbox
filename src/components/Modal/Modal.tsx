@@ -129,10 +129,14 @@ function ModalBody({ align = "start", className, ...props }: ModalBodyProps) {
   return <div data-align={align} className={cn("modal__body", className)} {...props} />;
 }
 
-export type ModalFooterProps = React.ComponentProps<"div">;
+export type ModalFooterProps = React.ComponentProps<"div"> & {
+  /** `responsive` stacks full-width actions at viewport widths up to 480px.
+   * `stacked` always stacks. Children keep their DOM and keyboard order. */
+  layout?: "row" | "stacked" | "responsive";
+};
 
-function ModalFooter({ className, ...props }: ModalFooterProps) {
-  return <div className={cn("modal__foot", className)} {...props} />;
+function ModalFooter({ layout = "row", className, ...props }: ModalFooterProps) {
+  return <div data-layout={layout} className={cn("modal__foot", className)} {...props} />;
 }
 
 /**

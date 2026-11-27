@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+### Added
+
+- `SelectionBox density="compact"` uses 8px vertical / 12px horizontal padding, Hanken bold 14px labels and no label/description gap. Default density is unchanged.
+- `Card padding="sm"` supplies a 16px inset; existing padding defaults and options are unchanged.
+
+- `IconButton` `size="xs"`: 24px visual with a 16px glyph, optionally expanded to an exact 48×48px hit area using `touchTarget`. Compact detail-list Storybook recipe demonstrates separate targets.
+
+- `Modal.Footer` `layout="stacked"` and `layout="responsive"` (stacks at viewport widths up to 480px), with full-width actions in DOM order. The default row layout is unchanged.
+- `StatusIcon` `error` (critical fill, close glyph) and `warning` (warning fill, schedule glyph) variants, with matching accessible labels and Storybook examples. Override `aria-label` for outcomes such as “Expired”.
+
+### Fixed
+
+- `AssetMark asset="bsc"` now resolves the supplied BSC network logo, matching the hosted app. Matching is case-insensitive; BNB and Binance mappings are unchanged.
+
+- Button, IconButton, LinkButton and SelectionBox hover styles now apply only with a fine pointer that supports hover. LinkButton and SelectionBox provide pressed feedback, while disabled and IconButton toggle states retain precedence.
+
+### Changed
+
+- **Breaking (types):** `StatusIcon.variant` and `CardStatus.status` now share the supported set: `success`, `needApproval`, `error`, and `warning`. Arbitrary strings and the previously advertised but unimplemented `pending` / `info` states are no longer accepted. Awaiting/processing presentation remains an app composition.
+
 ## [0.7.0] — 2026-11-10
 
 ### Added

@@ -1,4 +1,5 @@
 import React from "react";
+import { expect, fn, userEvent, within } from "storybook/test";
 import { IconButton } from "./IconButton";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -10,8 +11,9 @@ const meta: Meta<typeof IconButton> = {
     icon: { control: "text" },
     variant: { control: "inline-radio", options: ["primary", "secondary", "tertiary", "destructive"] },
     shape: { control: "inline-radio", options: ["circle", "square"] },
-    size: { control: "inline-radio", options: ["lg", "sm"] },
+    size: { control: "inline-radio", options: ["lg", "sm", "xs"] },
     disabled: { control: "boolean" },
+    touchTarget: { control: "boolean" },
   },
   args: { icon: "notifications", label: "Notifications", disabled: false },
 };
@@ -32,6 +34,7 @@ export const AllSizes: Story = {
     <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
       <IconButton icon="search" variant="secondary" size="lg" label="Search lg" />
       <IconButton icon="search" variant="secondary" size="sm" label="Search sm" />
+      <IconButton icon="search" variant="secondary" size="xs" label="Search xs" />
     </div>
   ),
 };
@@ -91,4 +94,60 @@ export const Showcase: Story = {
       <IconButton icon="check" variant="primary" shape="square" label="Confirm" />
     </div>
   ),
+};
+
+export const ExtraSmall: Story = {
+  args: { icon: "content_copy", label: "Copy address", size: "xs", touchTarget: true },
+};
+
+/** 56px row pitch keeps 48px targets separate. Insets contain the expanded area.
+ * Wire onClick to the application's clipboard handler; this story logs the action. */
+export const CompactDetailList: Story = {
+  args: { onClick: fn() },
+  parameters: { layout: "padded" },
+  render: (args) => (
+    <dl style={{ margin: 0, width: "100%", maxWidth: 360, paddingInline: 12 }}>
+      {[
+        { label: "Address", value: "0x1234…abcd" },
+        { label: "Txn hash", value: "0xabcd…5678" },
+      ].map(({ label, value }) => (
+        <div key={label} style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 16, alignItems: "center", minHeight: 56 }}>
+          <dt style={{ font: "var(--body-medium)" }}>{label}</dt>
+          <dd style={{ margin: 0, display: "grid", gridTemplateColumns: "auto 24px", gap: 16, alignItems: "center", font: "var(--body-medium)" }}>
+            <span>{value}</span>
+            <IconButton icon="content_copy" label={`Copy ${label.toLowerCase()}`} size="xs" touchTarget onClick={args.onClick} />
+          </dd>
+        </div>
+      ))}
+    </dl>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const buttons = within(canvasElement).getAllByRole("button");
+    for (const button of buttons) {
+      const box = button.getBoundingClientRect();
+      await expect(box.width).toBe(24);
+      await expect(box.height).toBe(24);
+      const glyph = button.querySelector("svg");
+      await expect(glyph).not.toBeNull();
+      if (glyph) await expect(getComputedStyle(glyph).fontSize).toBe("16px");
+      const target = getComputedStyle(button, "::after");
+      await expect(target.width).toBe("48px");
+      await expect(target.height).toBe("48px");
+      // Points beyond the visual button must still hit this button, not its neighbour.
+      for (const offset of [-22, 22]) {
+        const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2 + offset);
+        await expect(hit).toBe(button);
+      }
+      const hit = document.elementFromPoint(box.left + box.width / 2 + 22, box.top + box.height / 2);
+      await expect(hit).toBe(button);
+      if (hit) await userEvent.click(hit);
+    }
+    const first = buttons[0].getBoundingClientRect();
+    const second = buttons[1].getBoundingClientRect();
+    await expect(second.top - first.top).toBeGreaterThanOrEqual(48);
+    await expect(args.onClick).toHaveBeenCalledTimes(2);
+    buttons[0].focus();
+    await userEvent.tab();
+    await expect(buttons[1]).toHaveFocus();
+  },
 };

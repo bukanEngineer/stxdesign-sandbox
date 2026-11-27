@@ -1,9 +1,28 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { StatusIcon } from "./StatusIcon";
+import { StatusIcon, type StatusIconVariant } from "./StatusIcon";
 import { renderSmoke, assertPropSpreading } from "../../test-utils";
 
 describe("StatusIcon", () => {
+  it.each<{ variant: StatusIconVariant; label: string; icon: string }>([
+    { variant: "success", label: "Success", icon: "check" },
+    { variant: "needApproval", label: "Needs approval", icon: "hourglass_top" },
+    { variant: "error", label: "Error", icon: "close" },
+    { variant: "warning", label: "Warning", icon: "schedule" },
+  ])("renders $variant with its accessible label and glyph", ({ variant, label, icon }) => {
+    render(<StatusIcon variant={variant} />);
+    const status = screen.getByRole("img", { name: label });
+    expect(status.querySelector("svg")).toHaveAttribute("data-icon", icon);
+    expect(status).toHaveStyle({ "--status-icon-size": "36px" });
+  });
+
+  it("allows an outcome-specific label and glyph override", () => {
+    render(<StatusIcon variant="warning" icon="hourglass_top" aria-label="Expired" />);
+    const status = screen.getByRole("img", { name: "Expired" });
+    expect(status.querySelector("svg")).toHaveAttribute("data-icon", "hourglass_top");
+    expect(screen.queryByRole("img", { name: "Success" })).not.toBeInTheDocument();
+  });
+
   // A: Renderability
   it("renders with no props (defaults to success)", () => {
     renderSmoke(StatusIcon);

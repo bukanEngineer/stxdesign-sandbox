@@ -32,7 +32,9 @@
   background: var(--primary);
   color: var(--text-primary);
 }
-.btn--primary:hover { background: var(--btn-primary-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: var(--btn-primary-hovered); }
+}
 .btn--primary:active { background: var(--btn-primary-pressed); }
 
 .btn--secondary {
@@ -40,7 +42,9 @@
   color: var(--btn-secondary-text);
   border: 1.5px solid var(--interactive-active);
 }
-.btn--secondary:hover { background: var(--btn-secondary-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .btn--secondary:hover { background: var(--btn-secondary-hovered); }
+}
 .btn--secondary:active { background: var(--btn-secondary-pressed); }
 
 .btn--tertiary {
@@ -49,14 +53,18 @@
   padding: 0 var(--space-4);
   min-width: 100px;
 }
-.btn--tertiary:hover { background: var(--btn-tertiary-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .btn--tertiary:hover { background: var(--btn-tertiary-hovered); }
+}
 .btn--tertiary:active { background: var(--btn-tertiary-pressed); }
 
 .btn--destructive {
   background: var(--status-critical);
   color: var(--text-inverse);
 }
-.btn--destructive:hover { background: var(--btn-destructive-hovered); }
+@media (hover: hover) and (pointer: fine) {
+  .btn--destructive:hover { background: var(--btn-destructive-hovered); }
+}
 .btn--destructive:active { background: var(--btn-destructive-pressed); }
 .btn--destructive:focus-visible { outline-color: var(--status-critical); }
 

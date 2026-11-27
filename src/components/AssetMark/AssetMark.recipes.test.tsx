@@ -2,6 +2,7 @@ import React from "react";
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { AssetMark } from "./AssetMark";
+import { BscLogo } from "../PartnerLogo/logos";
 import { ListAsset } from "../ListAsset/ListAsset";
 import { CardSummary } from "../CardSummary/CardSummary";
 import { ModalAssetSelection } from "../ModalAssetSelection/ModalAssetSelection";
@@ -49,7 +50,7 @@ const recipes = [
 
 for (const recipe of recipes) {
   describe(`${recipe.name} asset artwork`, () => {
-    it.each(["SGD", "XSGD", "ETH", "ethereum"])("resolves %s through AssetMark", (symbol) => {
+    it.each(["SGD", "XSGD", "ETH", "ethereum", "bsc"])("resolves %s through AssetMark", (symbol) => {
       const expected = render(<AssetMark asset={symbol} />);
       const art = expected.container.querySelector("svg")!.innerHTML;
       expected.unmount();
@@ -97,4 +98,19 @@ it("resolves currency picker options while honoring a selected null override", (
   );
   expect(container.querySelector(".input-currency__mark")).toBeNull();
   expect(container.querySelector(".input-currency__symbol")).toHaveTextContent("SGD");
+});
+
+it.each(["bsc", "BSC", "Bsc"])("renders %s using the hosted app's BSC artwork", (asset) => {
+  const reference = render(<BscLogo />);
+  const artwork = reference.container.querySelector("svg")?.innerHTML;
+  reference.unmount();
+  const { rerender } = render(<AssetMark asset={asset} size={14} />);
+  const mark = screen.getByRole("img", { name: asset });
+  expect(mark.querySelector("svg")).not.toBeNull();
+  expect(mark.querySelector("svg")?.innerHTML).toBe(artwork);
+  expect(mark.querySelector("svg")).toHaveAttribute("width", "14");
+  expect(mark.querySelector("svg")).toHaveAttribute("height", "14");
+  rerender(<AssetMark asset={asset} size={20} />);
+  expect(mark.querySelector("svg")).toHaveAttribute("width", "20");
+  expect(mark.querySelector("svg")).toHaveAttribute("height", "20");
 });

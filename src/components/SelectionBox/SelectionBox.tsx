@@ -10,6 +10,8 @@ export type SelectionBoxProps = {
   /** Controlled checked state for `type="check"`. Radio selection comes from `Radio.Group`. */
   selected?: boolean;
   disabled?: boolean;
+  /** Compact rows use 8px/12px padding, bold 14px labels and no text gap. */
+  density?: "default" | "compact";
   label?: React.ReactNode;
   description?: React.ReactNode;
   /** Custom leading visual (radio type only). */
@@ -27,6 +29,7 @@ export function SelectionBox({
   type = "radio",
   selected = false,
   disabled = false,
+  density = "default",
   label,
   description,
   icon,
@@ -47,7 +50,7 @@ export function SelectionBox({
 
   if (type === "check") {
     return (
-      <label className={cls} htmlFor={id}>
+      <label className={cls} data-density={density} htmlFor={id}>
         <Checkbox.Root
           id={id}
           checked={selected}
@@ -63,7 +66,7 @@ export function SelectionBox({
   }
 
   return (
-    <label className={cls} htmlFor={id}>
+    <label className={cls} data-density={density} htmlFor={id}>
       {useIcon ? (
         <span className="selbox__indicator selbox__indicator--custom" aria-hidden="true">
           {icon}

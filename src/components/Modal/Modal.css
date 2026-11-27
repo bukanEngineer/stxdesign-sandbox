@@ -140,3 +140,22 @@
   background: var(--surface-secondary);
 }
 .modal__foot > * { flex: 1 0 0; }
+
+.modal__foot[data-layout="stacked"] {
+  flex-direction: column;
+  align-items: stretch;
+}
+.modal__foot[data-layout="stacked"] > * {
+  flex: 0 0 auto;
+  width: 100%;
+}
+@media (max-width: 480px) {
+  .modal__foot[data-layout="responsive"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .modal__foot[data-layout="responsive"] > * {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}

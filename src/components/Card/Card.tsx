@@ -6,14 +6,14 @@ import "./Card.css";
 export type CardShadow = false | 1 | 2 | 3;
 
 export type CardRadius = "md" | "lg";
-export type CardPadding = "none" | "md" | "lg";
+export type CardPadding = "none" | "sm" | "md" | "lg";
 
 export type CardProps = React.ComponentProps<"section"> & {
   /** Shadow elevation (1–3), or `false` for none */
   shadow?: CardShadow;
   /** Corner radius: `md` (8px) for small cards, `lg` (12px) for larger section panels */
   radius?: CardRadius;
-  /** Inner padding: `md` (20px, default), `lg` (24px) or `none` */
+  /** Inner padding: `sm` (16px), `md` (20px, default), `lg` (24px) or `none` */
   padding?: CardPadding;
 };
 
